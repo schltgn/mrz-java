@@ -63,7 +63,7 @@ public enum MrzDocumentCode {
      * @param mrz the mrz string
      * @return the mrz document code
      */
-    public static MrzDocumentCode parse(String mrz) {
+    public static MrzDocumentCode parse(final String mrz) {
         final String code = mrz.substring(0, 2);
 
         // 2-letter checks

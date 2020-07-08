@@ -39,63 +39,109 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
      * Note: I am unable to find a specification of conversion of this value to a full year value.
      * </p>
      */
-    public final int year;
+    private final int year;
     /**
      * Month, 1-12.
      */
-    public final int month;
+    private final int month;
     /**
      * Day, 1-31.
      */
-    public final int day;
+    private final int day;
 
     private final String mrz;
 
     /**
-     * Is the date valid or not
+     * Is the date valid or not.
      */
-    private final boolean isValidDate;
+    private final boolean dateValid;
 
-    public MrzDate(int year, int month, int day) {
+    /**
+     * @param year the year 00-99
+     * @param month the month 1-12
+     * @param day the day 1-31
+     */
+    public MrzDate(final int year, final int month, final int day) {
         this.year = year;
         this.month = month;
         this.day = day;
-        isValidDate = check();
+        this.dateValid = check();
         this.mrz = null;
     }
 
-    public MrzDate(int year, int month, int day, String raw) {
+    /**
+     * @param year the year 00-99
+     * @param month the month 1-12
+     * @param day the day 1-31
+     * @param raw the raw MRZ value
+     */
+    public MrzDate(final int year, final int month, final int day, final String raw) {
         this.year = year;
         this.month = month;
         this.day = day;
-        isValidDate = check();
+        this.dateValid = check();
         this.mrz = raw;
     }
 
-    @Override
-    public String toString() {
-        return "{" + day + "/" + month + "/" + year + '}';
+    /**
+     * @return the year
+     */
+    public final int getYear() {
+        return year;
     }
 
+    /**
+     * @return the month
+     */
+    public final int getMonth() {
+        return month;
+    }
+
+    /**
+     * @return the day
+     */
+    public final int getDay() {
+        return day;
+    }
+
+    /**
+     * @return the raw MRZ
+     */
+    public final String getMrz() {
+        return mrz;
+    }
+
+    /**
+     * Returns the date validity.
+     *
+     * @return true if the parsed date is valid, false otherwise
+     */
+    public final boolean isDateValid() {
+        return dateValid;
+    }
+
+    /**
+     * @return the date in MRZ format
+     */
     public String toMrz() {
-        if (mrz != null) {
-            return mrz;
+        if (getMrz() != null) {
+            return getMrz();
         } else {
-            return String.format("%02d%02d%02d", year, month, day);
+            return String.format("%02d%02d%02d", getYear(), getMonth(), getDay());
         }
     }
 
     private boolean check() {
-        if (year < 0 || year > 99) {
-            log.debug("Parameter year: invalid value " + year + ": must be 0..99");
+        if (getYear() < 0 || getYear() > 99) {
+            log.debug("Parameter year: invalid value " + getYear() + ": must be 0..99");
             return false;
         }
-        if (month < 1 || month > 12) {
-            log.debug("Parameter month: invalid value " + month + ": must be 1..12");
+        if (getMonth() < 1 || getMonth() > 12) {
+            log.debug("Parameter month: invalid value " + getMonth() + ": must be 1..12");
             return false;
         }
-        if (day < 1 || day > 31) {
-            log.debug("Parameter day: invalid value " + day + ": must be 1..31");
+        if (getDay() < 1 || getDay() > 31) {
+            log.debug("Parameter day: invalid value " + getDay() + ": must be 1..31");
             return false;
         }
 
@@ -103,7 +149,7 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }
@@ -111,13 +157,13 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
             return false;
         }
         final MrzDate other = (MrzDate) obj;
-        if (this.year != other.year) {
+        if (this.getYear() != other.getYear()) {
             return false;
         }
-        if (this.month != other.month) {
+        if (this.getMonth() != other.getMonth()) {
             return false;
         }
-        if (this.day != other.day) {
+        if (this.getDay() != other.getDay()) {
             return false;
         }
         return true;
@@ -126,22 +172,20 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + this.year;
-        hash = 11 * hash + this.month;
-        hash = 11 * hash + this.day;
+        hash = 11 * hash + this.getYear();
+        hash = 11 * hash + this.getMonth();
+        hash = 11 * hash + this.getDay();
         return hash;
     }
 
-    public int compareTo(MrzDate o) {
-        return Integer.valueOf(year * 10000 + month * 100 + day).compareTo(o.year * 10000 + o.month * 100 + o.day);
+    @Override
+    public int compareTo(final MrzDate o) {
+        return Integer.valueOf(getYear() * 10000 + getMonth() * 100 + getDay()).compareTo(o.getYear() * 10000 + o.getMonth() * 100 + o.getDay());
     }
 
-    /**
-     * Returns the date validity
-     *
-     * @return Returns a boolean true if the parsed date is valid, false otherwise
-     */
-    public boolean isDateValid() {
-        return isValidDate;
+    @Override
+    public String toString() {
+        return "{" + getDay() + "/" + getMonth() + "/" + getYear() + '}';
     }
+
 }

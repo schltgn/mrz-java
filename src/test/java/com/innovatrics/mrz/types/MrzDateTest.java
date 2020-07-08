@@ -1,25 +1,25 @@
 /**
  * Java parser for the MRZ records, as specified by the ICAO organization.
  * Copyright (C) 2011 Innovatrics s.r.o.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 package com.innovatrics.mrz.types;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
@@ -62,18 +62,18 @@ public class MrzDateTest {
     @Test
     public void testInvalidDate() {
         MrzDate date = new MrzDate(88, 9, 41);
-        assertEquals(88, date.year);
-        assertEquals(9, date.month);
-        assertEquals(41, date.day);
+        assertEquals(88, date.getYear());
+        assertEquals(9, date.getMonth());
+        assertEquals(41, date.getDay());
         assertEquals(false, date.isDateValid());
     }
 
     @Test
     public void testValidDate() {
         MrzDate date = new MrzDate(88, 9, 30);
-        assertEquals(88, date.year);
-        assertEquals(9, date.month);
-        assertEquals(30, date.day);
+        assertEquals(88, date.getYear());
+        assertEquals(9, date.getMonth());
+        assertEquals(30, date.getDay());
         assertEquals(true, date.isDateValid());
     }
 }

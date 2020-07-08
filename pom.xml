@@ -37,6 +37,8 @@
 
     <properties>
         <bt.qa.skip>true</bt.qa.skip>
+        <checkstyle.skip>false</checkstyle.skip>
+        <checkstyle.suppressions.location>${basedir}/checkstyle-exclude.xml</checkstyle.suppressions.location>
     </properties>
 
     <description>Provides Java MRZ parser</description>

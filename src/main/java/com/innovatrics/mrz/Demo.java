@@ -31,9 +31,10 @@ import javax.swing.JTextArea;
  *
  * @author Martin Vysny
  */
+@SuppressWarnings("HideUtilityClassConstructor")
 public class Demo {
 
-    private static int toPos(int col, int row, String text) {
+    private static int toPos(final int col, final int row, final String text) {
         int currentRow = 0;
         int currentCol = 0;
         int pos = 0;
@@ -57,14 +58,14 @@ public class Demo {
      *
      * @param args the main arguments
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         final JFrame frame = new JFrame("MRZDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final JTextArea mrz = new JTextArea(5, 44);
         final JButton parse = new JButton("Parse");
         parse.addActionListener(new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 final String m = mrz.getText();
                 try {
                     final MrzRecord record = MrzParser.parse(m);
@@ -73,8 +74,8 @@ public class Demo {
                     JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
                     if (ex instanceof MrzParseException) {
                         final MrzParseException mpe = (MrzParseException) ex;
-                        final MrzRange r = mpe.range;
-                        mrz.select(toPos(r.column, r.row, m), toPos(r.columnTo, r.row, m));
+                        final MrzRange r = mpe.getRange();
+                        mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
                     }
                 }
             }
