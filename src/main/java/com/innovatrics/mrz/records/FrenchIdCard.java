@@ -1,17 +1,17 @@
 /**
  * Java parser for the MRZ records, as specified by the ICAO organization.
  * Copyright (C) 2011 Innovatrics s.r.o.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -25,12 +25,12 @@ import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzFormat;
 
 /**
- * Format used for French ID Cards.
- * <p/>
- * The structure of the card:
- * 2 lines of 36 characters :
-<pre>First line : IDFRA{name}{many < to complete line}{6 numbers unknown}
-Second line : {card number on 12 numbers}{Check digit}{given names separated by "<<" and maybe troncated if too long}{date of birth YYMMDD}{Check digit}{sex M/F}{1 number checksum}</pre>
+ * Format used for French ID Cards. The structure of the card: 2 lines of 36 characters :
+ * <pre>
+ * First line : IDFRA{name}{many &lt; to complete line}{6 numbers unknown} Second line : {card number on 12 numbers}{Check digit}{given names
+ * separated by "&lt;&lt;" and maybe troncated if too long}{date of birth YYMMDD}{Check digit}{sex M/F}{1 number checksum}
+ * </pre>
+ *
  * @author Pierrick Martin, Marin Moulinier
  */
 public class FrenchIdCard extends MrzRecord {
@@ -44,8 +44,7 @@ public class FrenchIdCard extends MrzRecord {
         code2 = 'D';
     }
     /**
-     * For use of the issuing State or 
-    organization.
+     * For use of the issuing State or organization.
      */
     public String optional;
 
@@ -65,7 +64,7 @@ public class FrenchIdCard extends MrzRecord {
         dateOfBirth = p.parseDate(new MrzRange(27, 33, 1));
         validDateOfBirth = p.checkDigit(33, 1, new MrzRange(27, 33, 1), "date of birth") && dateOfBirth.isDateValid();
         sex = p.parseSex(34, 1);
-        final String finalChecksum = mrz.toString().replace("\n","").substring(0, 36 + 35);
+        final String finalChecksum = mrz.toString().replace("\n", "").substring(0, 36 + 35);
         validComposite = p.checkDigit(35, 1, finalChecksum, "final checksum");
         // TODO expirationDate is missing
     }
@@ -89,7 +88,7 @@ public class FrenchIdCard extends MrzRecord {
         sb.append(dateOfBirth.toMrz());
         sb.append(MrzParser.computeCheckDigitChar(dateOfBirth.toMrz()));
         sb.append(sex.mrz);
-        sb.append(MrzParser.computeCheckDigitChar(sb.toString().replace("\n","")));
+        sb.append(MrzParser.computeCheckDigitChar(sb.toString().replace("\n", "")));
         sb.append('\n');
         return sb.toString();
     }

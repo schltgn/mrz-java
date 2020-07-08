@@ -1,17 +1,17 @@
 /**
  * Java parser for the MRZ records, as specified by the ICAO organization.
  * Copyright (C) 2011 Innovatrics s.r.o.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -21,17 +21,18 @@ package com.innovatrics.mrz;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzFormat;
 import com.innovatrics.mrz.types.MrzSex;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Parses the MRZ records.
- * <p/>
+ * <p>
  * All parse methods throws {@link MrzParseException} unless stated otherwise.
+ * </p>
+ *
  * @author Martin Vysny
  */
 public class MrzParser {
@@ -51,6 +52,7 @@ public class MrzParser {
 
     /**
      * Creates new parser which parses given MRZ record.
+     *
      * @param mrz the MRZ record, not null.
      */
     public MrzParser(String mrz) {
@@ -60,9 +62,10 @@ public class MrzParser {
     }
 
     /**
+     * Parses the MRZ name in form of SURNAME &lt;&lt;FIRSTNAME&lt;.
+     *
      * @author jllarraz@github
-     * Parses the MRZ name in form of SURNAME<<FIRSTNAME<
-     * @Param range the range
+     * @param range the range
      * @return array of [surname, first_name], never null, always with a length of 2.
      */
     public String[] parseName(MrzRange range) {
@@ -75,11 +78,10 @@ public class MrzParser {
         String surname = "";
         String givenNames = "";
         surname = parseString(new MrzRange(range.column, range.column + names[0].length(), range.row));
-        if(names.length==1){
+        if (names.length == 1) {
             givenNames = parseString(new MrzRange(range.column, range.column + names[0].length(), range.row));
             surname = "";
-        }
-        else if(names.length>1){
+        } else if (names.length > 1) {
             surname = parseString(new MrzRange(range.column, range.column + names[0].length(), range.row));
             givenNames = parseString(new MrzRange(range.column + names[0].length() + 2, range.column + str.length(), range.row));
         }
@@ -88,6 +90,7 @@ public class MrzParser {
 
     /**
      * Returns a raw MRZ value from given range. If multiple ranges are specified, the value is concatenated.
+     *
      * @param range the ranges, not null.
      * @return raw value, never null, may be empty.
      */
@@ -101,6 +104,7 @@ public class MrzParser {
 
     /**
      * Checks that given range contains valid characters.
+     *
      * @param range the range to check.
      */
     public void checkValidCharacters(MrzRange range) {
@@ -115,6 +119,7 @@ public class MrzParser {
 
     /**
      * Parses a string in given range. &lt;&lt; are replaced with ", ", &lt; is replaced by space.
+     *
      * @param range the range
      * @return parsed string.
      */
@@ -129,6 +134,7 @@ public class MrzParser {
 
     /**
      * Verifies the check digit.
+     *
      * @param col the 0-based column of the check digit.
      * @param row the 0-based column of the check digit.
      * @param strRange the range for which the check digit is computed.
@@ -141,6 +147,7 @@ public class MrzParser {
 
     /**
      * Verifies the check digit.
+     *
      * @param col the 0-based column of the check digit.
      * @param row the 0-based column of the check digit.
      * @param str the raw MRZ substring.
@@ -163,13 +170,14 @@ public class MrzParser {
             invalidCheckdigit = new MrzRange(col, col + 1, row);
             System.out.println("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit);
         }
-        return invalidCheckdigit==null;
+        return invalidCheckdigit == null;
     }
 
     private static Logger log = LoggerFactory.getLogger(MrzParser.class);
 
     /**
      * Parses MRZ date.
+     *
      * @param range the range containing the date, in the YYMMDD format. The range must be 6 characters long.
      * @return parsed date
      * @throws IllegalArgumentException if the range is not 6 characters long.
@@ -218,6 +226,7 @@ public class MrzParser {
 
     /**
      * Parses the "sex" value from given column/row.
+     *
      * @param col the 0-based column
      * @param row the 0-based row
      * @return sex, never null.
@@ -229,6 +238,7 @@ public class MrzParser {
 
     /**
      * Checks if given character is valid in MRZ.
+     *
      * @param c the character.
      * @return true if the character is valid, false otherwise.
      */
@@ -251,8 +261,11 @@ public class MrzParser {
 
     /**
      * Computes MRZ check digit for given string of characters.
+     *
      * @param str the string
-     * @return check digit in range of 0..9, inclusive. See <a href="http://www2.icao.int/en/MRTD/Downloads/Doc%209303/Doc%209303%20English/Doc%209303%20Part%203%20Vol%201.pdf">MRTD documentation</a> part 15 for details.
+     * @return check digit in range of 0..9, inclusive. See
+     * <a href="http://www2.icao.int/en/MRTD/Downloads/Doc%209303/Doc%209303%20English/Doc%209303%20Part%203%20Vol%201.pdf">MRTD documentation</a>
+     * part 15 for details.
      */
     public static int computeCheckDigit(String str) {
         int result = 0;
@@ -264,8 +277,11 @@ public class MrzParser {
 
     /**
      * Computes MRZ check digit for given string of characters.
+     *
      * @param str the string
-     * @return check digit in range of 0..9, inclusive. See <a href="http://www2.icao.int/en/MRTD/Downloads/Doc%209303/Doc%209303%20English/Doc%209303%20Part%203%20Vol%201.pdf">MRTD documentation</a> part 15 for details.
+     * @return check digit in range of 0..9, inclusive. See
+     * <a href="http://www2.icao.int/en/MRTD/Downloads/Doc%209303/Doc%209303%20English/Doc%209303%20Part%203%20Vol%201.pdf">MRTD documentation</a>
+     * part 15 for details.
      */
     public static char computeCheckDigitChar(String str) {
         return (char) ('0' + computeCheckDigit(str));
@@ -273,6 +289,7 @@ public class MrzParser {
 
     /**
      * Factory method, which parses the MRZ and returns appropriate record class.
+     *
      * @param mrz MRZ to parse.
      * @return record class.
      */
@@ -281,7 +298,6 @@ public class MrzParser {
         result.fromMrz(mrz);
         return result;
     }
-
 
     private static final Map<String, String> EXPAND_CHARACTERS = new HashMap<String, String>();
 
@@ -304,10 +320,12 @@ public class MrzParser {
     }
 
     /**
-     * Converts given string to a MRZ string: removes all accents, converts the string to upper-case and replaces all spaces and invalid characters with '&lt;'.
-     * <p/>
+     * Converts given string to a MRZ string: removes all accents, converts the string to upper-case and replaces all spaces and invalid characters
+     * with '&lt;'.
+     * <p>
      * Several characters are expanded:
-     * <table border="1">
+     * </p>
+     * <table border="1" summary="Expanded characters">
      * <tr><th>Character</th><th>Expand to</th></tr>
      * <tr><td>Ä</td><td>AE</td></tr>
      * <tr><td>Å</td><td>AA</td></tr>
@@ -319,15 +337,17 @@ public class MrzParser {
      * <tr><td>Ü</td><td>UE</td></tr>
      * <tr><td>ß</td><td>SS</td></tr>
      * </table>
-     * <p/>
-     * Examples:<ul>
+     * Examples:
+     * <ul>
      * <li><code>toMrz("Sedím na konári", 20)</code> yields <code>"SEDIM&lt;NA&lt;KONARI&lt;&lt;&lt;&lt;&lt;"</code></li>
      * <li><code>toMrz("Pat, Mat", 8)</code> yields <code>"PAT&lt;&lt;MAT"</code></li>
      * <li><code>toMrz("foo/bar baz", 4)</code> yields <code>"FOO&lt;"</code></li>
-     * <li><code>toMrz("*$()&/\", 8)</code> yields <code>"&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;"</code></li>
+     * <li><code>toMrz("*$()&amp;/\", 8)</code> yields <code>"&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;"</code></li>
      * </ul>
+     *
      * @param string the string to convert. Passing null is the same as passing in an empty string.
-     * @param length required length of the string. If given string is longer, it is truncated. If given string is shorter than given length, '&lt;' characters are appended at the end. If -1, the string is neither truncated nor enlarged.
+     * @param length required length of the string. If given string is longer, it is truncated. If given string is shorter than given length, '&lt;'
+     * characters are appended at the end. If -1, the string is neither truncated nor enlarged.
      * @return MRZ-valid string.
      */
     public static String toMrz(String string, int length) {
@@ -360,10 +380,13 @@ public class MrzParser {
     }
 
     /**
-     * Converts a surname and given names to a MRZ string, shortening them as per Doc 9303 Part 3 Vol 1 Section 6.7 of the MRZ specification when necessary.
+     * Converts a surname and given names to a MRZ string, shortening them as per Doc 9303 Part 3 Vol 1 Section 6.7 of the MRZ specification when
+     * necessary.
+     *
      * @param surname the surname, not blank.
      * @param givenNames given names, not blank.
-     * @param length required length of the string. If given string is longer, it is shortened. If given string is shorter than given length, '&lt;' characters are appended at the end.
+     * @param length required length of the string. If given string is longer, it is shortened. If given string is shorter than given length, '&lt;'
+     * characters are appended at the end.
      * @return name, properly converted to MRZ format of SURNAME&lt;&lt;GIVENNAMES&lt;..., with the exact length of given length.
      */
     public static String nameToMrz(String surname, String givenNames, int length) {
