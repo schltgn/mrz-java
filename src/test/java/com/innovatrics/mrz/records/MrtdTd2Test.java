@@ -35,7 +35,7 @@ public class MrtdTd2Test {
 	@Test
 	public void testTd2Parsing() {
 		final MrtdTd2 r = (MrtdTd2) MrzParser.parse("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2");
-		assertEquals(MrzDocumentCode.TypeI, r.getCode());
+		assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		assertEquals('I', r.getCode1());
 		assertEquals('<', r.getCode2());
 		assertEquals("UTO", r.getIssuingCountry());
@@ -44,7 +44,7 @@ public class MrtdTd2Test {
 		assertEquals("D23145890", r.getDocumentNumber());
 		assertEquals(new MrzDate(95, 7, 12), r.getExpirationDate());
 		assertEquals(new MrzDate(34, 7, 12), r.getDateOfBirth());
-		assertEquals(MrzSex.Male, r.getSex());
+		assertEquals(MrzSex.MALE, r.getSex());
 		assertEquals("STEVENSON", r.getSurname());
 		assertEquals("PETER", r.getGivenNames());
 	}
@@ -60,7 +60,7 @@ public class MrtdTd2Test {
 		r.setDocumentNumber("D23145890");
 		r.setExpirationDate(new MrzDate(95, 7, 12));
 		r.setDateOfBirth(new MrzDate(34, 7, 12));
-		r.setSex(MrzSex.Male);
+		r.setSex(MrzSex.MALE);
 		r.setSurname("STEVENSON");
 		r.setGivenNames("PETER");
 		assertEquals("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2\n", r.toMrz());

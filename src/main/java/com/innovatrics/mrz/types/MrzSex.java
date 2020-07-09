@@ -23,21 +23,20 @@ package com.innovatrics.mrz.types;
  *
  * @author Martin Vysny
  */
-@SuppressWarnings("PMD.FieldNamingConventions")
 public enum MrzSex {
 
 	/**
 	 * Male MRZ sex type.
 	 */
-	Male('M'),
+	MALE('M'),
 	/**
 	 * Female MRZ sex type.
 	 */
-	Female('F'),
+	FEMALE('F'),
 	/**
 	 * Unspecified MRZ sex type.
 	 */
-	Unspecified('X');
+	UNSPECIFIED('X');
 
 	/**
 	 * The MRZ character.
@@ -62,12 +61,12 @@ public enum MrzSex {
 	public static MrzSex fromMrz(final char sex) {
 		switch (sex) {
 			case 'M':
-				return Male;
+				return MALE;
 			case 'F':
-				return Female;
+				return FEMALE;
 			case '<':
 			case 'X':
-				return Unspecified;
+				return UNSPECIFIED;
 			default:
 				throw new IllegalArgumentException("Invalid MRZ sex character: " + sex);
 		}

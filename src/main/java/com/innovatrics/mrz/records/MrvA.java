@@ -20,7 +20,7 @@ package com.innovatrics.mrz.records;
 
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.MrzRange;
-import com.innovatrics.mrz.MrzRecord;
+import com.innovatrics.mrz.MrzRecordOptional;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzFormat;
 
@@ -29,21 +29,16 @@ import com.innovatrics.mrz.types.MrzFormat;
  *
  * @author Jeremy Le Berre
  */
-public class MrvA extends MrzRecord {
+public class MrvA extends MrzRecordOptional {
 
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Optional data at the discretion of the issuing State.
-	 */
-	private String optional;
 
 	/**
 	 * Construct a MrvA Record.
 	 */
 	public MrvA() {
-		super(MrzFormat.MRV_VISA_A);
-		setCode(MrzDocumentCode.TypeV);
+		super(MrzFormat.MRV_VISA_A, "MRV-A");
+		setCode(MrzDocumentCode.TYPE_V);
 		setCode1('V');
 		setCode2('<');
 	}
@@ -66,16 +61,6 @@ public class MrvA extends MrzRecord {
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("MRV-A");
-		sb.append('{');
-		sb.append(super.toString());
-		sb.append(", optional=").append(getOptional());
-		sb.append('}');
-		return sb.toString();
-	}
-
-	@Override
 	public String toMrz() {
 		// first line
 		final StringBuilder sb = new StringBuilder("V<");
@@ -94,24 +79,6 @@ public class MrvA extends MrzRecord {
 		sb.append(MrzParser.toMrz(getOptional(), 16));
 		sb.append('\n');
 		return sb.toString();
-	}
-
-	/**
-	 * Optional data at the discretion of the issuing State.
-	 *
-	 * @return the optional data
-	 */
-	public String getOptional() {
-		return optional;
-	}
-
-	/**
-	 * Optional data at the discretion of the issuing State.
-	 *
-	 * @param optional the optional data
-	 */
-	public void setOptional(final String optional) {
-		this.optional = optional;
 	}
 
 }

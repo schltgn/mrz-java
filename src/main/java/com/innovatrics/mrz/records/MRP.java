@@ -40,7 +40,7 @@ public class MRP extends MrzRecord {
 	 * Construct MRP Record.
 	 */
 	public MRP() {
-		super(MrzFormat.PASSPORT);
+		super(MrzFormat.PASSPORT, "MRP");
 	}
 
 	@Override
@@ -59,16 +59,6 @@ public class MRP extends MrzRecord {
 		setPersonalNumber(parser.parseString(new MrzRange(28, 42, 1)));
 		setValidPersonalNumber(parser.checkDigit(42, 1, new MrzRange(28, 42, 1), "personal number"));
 		setValidComposite(parser.checkDigit(43, 1, parser.rawValue(new MrzRange(0, 10, 1), new MrzRange(13, 20, 1), new MrzRange(21, 43, 1)), "mrz"));
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("MRP");
-		sb.append('{');
-		sb.append(super.toString());
-		sb.append(", personalNumber=").append(getPersonalNumber());
-		sb.append('}');
-		return sb.toString();
 	}
 
 	@Override
@@ -121,4 +111,11 @@ public class MRP extends MrzRecord {
 	protected void setValidPersonalNumber(final boolean validPersonalNumber) {
 		this.validPersonalNumber = validPersonalNumber;
 	}
+
+	@Override
+	protected void buildToString(final StringBuilder sb) {
+		super.buildToString(sb);
+		sb.append(", personalNumber=").append(getPersonalNumber());
+	}
+
 }

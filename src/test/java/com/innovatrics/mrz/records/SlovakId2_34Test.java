@@ -35,7 +35,7 @@ public class SlovakId2_34Test {
 	@Test
 	public void testSlovakId234Parsing() {
 		final SlovakId2_34 r = (SlovakId2_34) MrzParser.parse("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313");
-		assertEquals(MrzDocumentCode.TypeI, r.getCode());
+		assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		assertEquals('I', r.getCode1());
 		assertEquals('<', r.getCode2());
 		assertEquals("SVK", r.getIssuingCountry());
@@ -44,7 +44,7 @@ public class SlovakId2_34Test {
 		assertEquals("123456 AA", r.getDocumentNumber());
 		assertEquals(new MrzDate(18, 1, 2), r.getExpirationDate());
 		assertEquals(new MrzDate(81, 10, 25), r.getDateOfBirth());
-		assertEquals(MrzSex.Male, r.getSex());
+		assertEquals(MrzSex.MALE, r.getSex());
 		assertEquals("NOVAK", r.getSurname());
 		assertEquals("JAN", r.getGivenNames());
 	}
@@ -60,7 +60,7 @@ public class SlovakId2_34Test {
 		r.setDocumentNumber("123456 AA");
 		r.setExpirationDate(new MrzDate(18, 1, 2));
 		r.setDateOfBirth(new MrzDate(81, 10, 25));
-		r.setSex(MrzSex.Male);
+		r.setSex(MrzSex.MALE);
 		r.setSurname("NOVAK");
 		r.setGivenNames("JAN");
 		assertEquals("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313\n", r.toMrz());

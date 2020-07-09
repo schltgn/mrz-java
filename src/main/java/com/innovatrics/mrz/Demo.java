@@ -19,8 +19,6 @@
 package com.innovatrics.mrz;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -63,22 +61,18 @@ public class Demo {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		final JTextArea mrz = new JTextArea(5, 44);
 		final JButton parse = new JButton("Parse");
-		parse.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(final ActionEvent e) {
-				final String m = mrz.getText();
-				try {
-					final MrzRecord record = MrzParser.parse(m);
-					JOptionPane.showMessageDialog(frame, "Parse successfull: " + record);
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
-					if (ex instanceof MrzParseException) {
-						final MrzParseException mpe = (MrzParseException) ex;
-						final MrzRange r = mpe.getRange();
-						mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
-					}
-				}
+		parse.addActionListener(event -> {
+			final String m = mrz.getText();
+			try {
+				final MrzRecord record = MrzParser.parse(m);
+				JOptionPane.showMessageDialog(frame, "Parse successfull: " + record);
+			} catch (MrzParseException ex) {
+				JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
+				final MrzParseException mpe = (MrzParseException) ex;
+				final MrzRange r = mpe.getRange();
+				mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
 			}
 		});
 		frame.getContentPane().add(mrz, BorderLayout.CENTER);

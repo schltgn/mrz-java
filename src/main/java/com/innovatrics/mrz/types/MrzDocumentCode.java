@@ -26,37 +26,36 @@ import com.innovatrics.mrz.MrzRange;
  *
  * @author Martin Vysny
  */
-@SuppressWarnings("PMD.FieldNamingConventions")
 public enum MrzDocumentCode {
 
 	/**
 	 * A passport, P or IP. ... maybe Travel Document that is very similar to the passport.
 	 */
-	Passport,
+	PASSPORT,
 	/**
 	 * General I type (besides IP).
 	 */
-	TypeI,
+	TYPE_I,
 	/**
 	 * General A type (besides AC).
 	 */
-	TypeA,
+	TYPE_A,
 	/**
 	 * Crew member (AC).
 	 */
-	CrewMember,
+	CREW_MEMBER,
 	/**
 	 * General type C.
 	 */
-	TypeC,
+	TYPE_C,
 	/**
 	 * Type V (Visa).
 	 */
-	TypeV,
+	TYPE_V,
 	/**
 	 *
 	 */
-	Migrant;
+	MIGRANT;
 
 	/**
 	 * @author Zsombor turning to switch statement due to lots of types
@@ -72,32 +71,35 @@ public enum MrzDocumentCode {
 			case "IV":
 				throw new MrzParseException("IV document code is not allowed", mrz, new MrzRange(0, 2, 0), null); // TODO why?
 			case "AC":
-				return CrewMember;
+				return CREW_MEMBER;
 			case "ME":
-				return Migrant;
+				return MIGRANT;
 			case "TD":
-				return Migrant; // travel document
+				return MIGRANT; // travel document
 			case "IP":
-				return Passport;
+				return PASSPORT;
+			default:
+			// Do nothing
 		}
 
 		// 1-letter checks
 		switch (code.charAt(0)) {
 			case 'T':   // usually Travel Document
 			case 'P':
-				return Passport;
+				return PASSPORT;
 			case 'A':
-				return TypeA;
+				return TYPE_A;
 			case 'C':
-				return TypeC;
+				return TYPE_C;
 			case 'V':
-				return TypeV;
+				return TYPE_V;
 			case 'I':
-				return TypeI; // identity card or residence permit
+				return TYPE_I; // identity card or residence permit
 			case 'R':
-				return Migrant;  // swedish '51 Convention Travel Document
+				return MIGRANT;  // swedish '51 Convention Travel Document
+			default:
+				throw new MrzParseException("Unsupported document code: " + code, mrz, new MrzRange(0, 2, 0), null);
 		}
 
-		throw new MrzParseException("Unsupported document code: " + code, mrz, new MrzRange(0, 2, 0), null);
 	}
 }

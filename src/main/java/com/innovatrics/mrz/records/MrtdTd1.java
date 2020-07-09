@@ -20,7 +20,7 @@ package com.innovatrics.mrz.records;
 
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.MrzRange;
-import com.innovatrics.mrz.MrzRecord;
+import com.innovatrics.mrz.MrzRecordOptional;
 import com.innovatrics.mrz.types.MrzFormat;
 
 /**
@@ -28,14 +28,10 @@ import com.innovatrics.mrz.types.MrzFormat;
  *
  * @author Martin Vysny
  */
-public class MrtdTd1 extends MrzRecord {
+public class MrtdTd1 extends MrzRecordOptional {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Optional data at the discretion of the issuing State. May contain an extended document number as per 6.7, note (j).
-	 */
-	private String optional;
 	/**
 	 * Optional (for U.S. passport holders, 21-29 may be corresponding passport number).
 	 */
@@ -45,36 +41,25 @@ public class MrtdTd1 extends MrzRecord {
 	 * Construct a MrtdTd1 Record.
 	 */
 	public MrtdTd1() {
-		super(MrzFormat.MRTD_TD1);
+		super(MrzFormat.MRTD_TD1, "MRTD-TD1");
 	}
 
 	@Override
 	public void fromMrz(final String mrz) {
 		super.fromMrz(mrz);
-		final MrzParser p = new MrzParser(mrz);
-		setDocumentNumber(p.parseString(new MrzRange(5, 14, 0)));
-		setValidDocumentNumber(p.checkDigit(14, 0, new MrzRange(5, 14, 0), "document number"));
-		setOptional(p.parseString(new MrzRange(15, 30, 0)));
-		setDateOfBirth(p.parseDate(new MrzRange(0, 6, 1)));
-		setValidDateOfBirth(p.checkDigit(6, 1, new MrzRange(0, 6, 1), "date of birth") && getDateOfBirth().isDateValid());
-		setSex(p.parseSex(7, 1));
-		setExpirationDate(p.parseDate(new MrzRange(8, 14, 1)));
-		setValidExpirationDate(p.checkDigit(14, 1, new MrzRange(8, 14, 1), "expiration date") && getExpirationDate().isDateValid());
-		setNationality(p.parseString(new MrzRange(15, 18, 1)));
-		setOptional2(p.parseString(new MrzRange(18, 29, 1)));
-		setValidComposite(p.checkDigit(29, 1, p.rawValue(new MrzRange(5, 30, 0), new MrzRange(0, 7, 1), new MrzRange(8, 15, 1), new MrzRange(18, 29, 1)), "mrz"));
-		setName(p.parseName(new MrzRange(0, 30, 2)));
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("MRTD-TD1");
-		sb.append('{');
-		sb.append(super.toString());
-		sb.append(", optional=").append(getOptional());
-		sb.append(", optional2=").append(getOptional2());
-		sb.append('}');
-		return sb.toString();
+		final MrzParser parser = new MrzParser(mrz);
+		setDocumentNumber(parser.parseString(new MrzRange(5, 14, 0)));
+		setValidDocumentNumber(parser.checkDigit(14, 0, new MrzRange(5, 14, 0), "document number"));
+		setOptional(parser.parseString(new MrzRange(15, 30, 0)));
+		setDateOfBirth(parser.parseDate(new MrzRange(0, 6, 1)));
+		setValidDateOfBirth(parser.checkDigit(6, 1, new MrzRange(0, 6, 1), "date of birth") && getDateOfBirth().isDateValid());
+		setSex(parser.parseSex(7, 1));
+		setExpirationDate(parser.parseDate(new MrzRange(8, 14, 1)));
+		setValidExpirationDate(parser.checkDigit(14, 1, new MrzRange(8, 14, 1), "expiration date") && getExpirationDate().isDateValid());
+		setNationality(parser.parseString(new MrzRange(15, 18, 1)));
+		setOptional2(parser.parseString(new MrzRange(18, 29, 1)));
+		setValidComposite(parser.checkDigit(29, 1, parser.rawValue(new MrzRange(5, 30, 0), new MrzRange(0, 7, 1), new MrzRange(8, 15, 1), new MrzRange(18, 29, 1)), "mrz"));
+		setName(parser.parseName(new MrzRange(0, 30, 2)));
 	}
 
 	@Override
@@ -104,24 +89,6 @@ public class MrtdTd1 extends MrzRecord {
 	}
 
 	/**
-	 * Optional data at the discretion of the issuing State. May contain an extended document number as per 6.7, note (j).
-	 *
-	 * @return the optional data
-	 */
-	public String getOptional() {
-		return optional;
-	}
-
-	/**
-	 * Optional data at the discretion of the issuing State. May contain an extended document number as per 6.7, note (j).
-	 *
-	 * @param optional the optional data
-	 */
-	public void setOptional(final String optional) {
-		this.optional = optional;
-	}
-
-	/**
 	 * Optional (for U.S. passport holders, 21-29 may be corresponding passport number).
 	 *
 	 * @return the optional2 data
@@ -137,6 +104,12 @@ public class MrtdTd1 extends MrzRecord {
 	 */
 	public void setOptional2(final String optional2) {
 		this.optional2 = optional2;
+	}
+
+	@Override
+	protected void buildToString(final StringBuilder sb) {
+		super.buildToString(sb);
+		sb.append(", optional2=").append(getOptional2());
 	}
 
 }

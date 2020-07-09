@@ -37,6 +37,11 @@ public abstract class MrzRecord implements Serializable {
 	private final MrzFormat format;
 
 	/**
+	 * Name used for record type.
+	 */
+	private final String recordName;
+
+	/**
 	 * The document code.
 	 */
 	private MrzDocumentCode code;
@@ -111,8 +116,13 @@ public abstract class MrzRecord implements Serializable {
 	private boolean validExpirationDate = true;
 	private boolean validComposite = true;
 
-	protected MrzRecord(final MrzFormat format) {
+	/**
+	 * @param format the record format
+	 * @param recordName the record name
+	 */
+	protected MrzRecord(final MrzFormat format, final String recordName) {
 		this.format = format;
+		this.recordName = recordName;
 	}
 
 	/**
@@ -120,6 +130,13 @@ public abstract class MrzRecord implements Serializable {
 	 */
 	public final MrzFormat getFormat() {
 		return format;
+	}
+
+	/**
+	 * @return the record name
+	 */
+	public final String getRecordName() {
+		return recordName;
 	}
 
 	/**
@@ -367,8 +384,27 @@ public abstract class MrzRecord implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MrzRecord{" + "code=" + getCode() + "[" + getCode1() + getCode2() + "], issuingCountry=" + getIssuingCountry() + ", documentNumber=" + getDocumentNumber()
-				+ ", surname=" + getSurname() + ", givenNames=" + getGivenNames() + ", dateOfBirth=" + getDateOfBirth() + ", sex=" + getSex() + ", expirationDate="
-				+ getExpirationDate() + ", nationality=" + getNationality() + '}';
+		StringBuilder sb = new StringBuilder(getRecordName());
+		sb.append("{");
+		buildToString(sb);
+		sb.append("}");
+		return sb.toString();
 	}
+
+	/**
+	 * @param sb the string builder to hold the record details
+	 */
+	protected void buildToString(final StringBuilder sb) {
+		sb.append("code=").append(getCode());
+		sb.append('[').append(getCode1()).append(getCode2()).append(']');
+		sb.append(", issuingCountry=").append(getIssuingCountry());
+		sb.append(", documentNumber=").append(getDocumentNumber());
+		sb.append(", surname=").append(getSurname());
+		sb.append(", givenNames=").append(getGivenNames());
+		sb.append(", dateOfBirth=").append(getDateOfBirth());
+		sb.append(", sex=").append(getSex());
+		sb.append(", expirationDate=").append(getExpirationDate());
+		sb.append(", nationality=").append(getNationality());
+	}
+
 }

@@ -123,9 +123,8 @@ public class MrzParser {
 			str = str.substring(0, str.length() - 1);
 		}
 		final String[] names = str.split("<<");
-		String surname = "";
 		String givenNames = "";
-		surname = parseString(new MrzRange(range.getColumn(), range.getColumn() + names[0].length(), range.getRow()));
+		String surname = parseString(new MrzRange(range.getColumn(), range.getColumn() + names[0].length(), range.getRow()));
 		if (names.length == 1) {
 			givenNames = parseString(new MrzRange(range.getColumn(), range.getColumn() + names[0].length(), range.getRow()));
 			surname = "";
@@ -214,7 +213,7 @@ public class MrzParser {
 		}
 		if (digit != checkDigit) {
 			invalidCheckdigit = new MrzRange(col, col + 1, row);
-			System.out.println("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit);
+			LOG.info("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit);
 		}
 		return invalidCheckdigit == null;
 	}
@@ -230,8 +229,7 @@ public class MrzParser {
 		if (range.length() != 6) {
 			throw new IllegalArgumentException("Parameter range: invalid value " + range + ": must be 6 characters long");
 		}
-		MrzRange r;
-		r = new MrzRange(range.getColumn(), range.getColumn() + 2, range.getRow());
+		MrzRange r = new MrzRange(range.getColumn(), range.getColumn() + 2, range.getRow());
 		int year;
 		try {
 			year = Integer.parseInt(rawValue(r));
@@ -420,17 +418,22 @@ public class MrzParser {
 		if (length <= 0) {
 			throw new IllegalArgumentException("Parameter length: invalid value " + length + ": not positive");
 		}
-		String cleanSurname = surname.replace(", ", " ");
-		String cleanGivenNames = givenNames.replace(", ", " ");
-		final String[] surnames = cleanSurname.trim().split("[ \n\t\f\r]+");
-		final String[] given = cleanGivenNames.trim().split("[ \n\t\f\r]+");
-		for (int i = 0; i < surnames.length; i++) {
-			surnames[i] = toMrz(surnames[i], -1);
+		final String[] surnames = extractNames(surname);
+		final String[] given = extractNames(givenNames);
+		// Truncate
+		truncateNames(surnames, given, length, surname, givenNames);
+		return toMrz(toName(surnames, given), length);
+	}
+
+	private static String[] extractNames(final String name) {
+		final String[] names = name.replace(", ", " ").trim().split("[ \n\t\f\r]+");
+		for (int i = 0; i < names.length; i++) {
+			names[i] = toMrz(names[i], -1);
 		}
-		for (int i = 0; i < given.length; i++) {
-			given[i] = toMrz(given[i], -1);
-		}
-		// truncate
+		return names;
+	}
+
+	private static void truncateNames(final String[] surnames, final String[] given, final int length, final String surname, final String givenNames) {
 		int nameSize = getNameSize(surnames, given);
 		String[] currentlyTruncating = given;
 		int currentlyTruncatingIndex = given.length - 1;
@@ -452,7 +455,6 @@ public class MrzParser {
 			}
 			nameSize = getNameSize(surnames, given);
 		}
-		return toMrz(toName(surnames, given), length);
 	}
 
 	private static String toName(final String[] surnames, final String[] given) {

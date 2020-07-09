@@ -20,7 +20,7 @@ package com.innovatrics.mrz.records;
 
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.MrzRange;
-import com.innovatrics.mrz.MrzRecord;
+import com.innovatrics.mrz.MrzRecordOptional;
 import com.innovatrics.mrz.types.MrzFormat;
 
 /**
@@ -29,47 +29,32 @@ import com.innovatrics.mrz.types.MrzFormat;
  * @author Martin Vysny
  */
 @SuppressWarnings("TypeName") // Allow invalid name for backward compatability
-public class SlovakId2_34 extends MrzRecord {
+public class SlovakId2_34 extends MrzRecordOptional {
 
 	private static final long serialVersionUID = 1L;
-	/**
-	 * For use of the issuing State or organization. Unused character positions shall be completed with filler characters (&lt;) repeated up to
-	 * position 35 as required.
-	 */
-	private String optional;
 
 	/**
 	 * Construct a SlovakId2_34 Record.
 	 */
 	public SlovakId2_34() {
-		super(MrzFormat.SLOVAK_ID_234);
+		super(MrzFormat.SLOVAK_ID_234, "SlovakId2x34");
 	}
 
 	@Override
 	public void fromMrz(final String mrz) {
 		super.fromMrz(mrz);
-		final MrzParser p = new MrzParser(mrz);
-		setName(p.parseName(new MrzRange(5, 34, 0)));
-		setDocumentNumber(p.parseString(new MrzRange(0, 9, 1)));
-		setValidDocumentNumber(p.checkDigit(9, 1, new MrzRange(0, 9, 1), "document number"));
-		setNationality(p.parseString(new MrzRange(10, 13, 1)));
-		setDateOfBirth(p.parseDate(new MrzRange(13, 19, 1)));
-		setValidDateOfBirth(p.checkDigit(19, 1, new MrzRange(13, 19, 1), "date of birth") && getDateOfBirth().isDateValid());
-		setSex(p.parseSex(20, 1));
-		setExpirationDate(p.parseDate(new MrzRange(21, 27, 1)));
-		setValidExpirationDate(p.checkDigit(27, 1, new MrzRange(21, 27, 1), "expiration date") && getExpirationDate().isDateValid());
-		setOptional(p.parseString(new MrzRange(28, 34, 1)));
+		final MrzParser parser = new MrzParser(mrz);
+		setName(parser.parseName(new MrzRange(5, 34, 0)));
+		setDocumentNumber(parser.parseString(new MrzRange(0, 9, 1)));
+		setValidDocumentNumber(parser.checkDigit(9, 1, new MrzRange(0, 9, 1), "document number"));
+		setNationality(parser.parseString(new MrzRange(10, 13, 1)));
+		setDateOfBirth(parser.parseDate(new MrzRange(13, 19, 1)));
+		setValidDateOfBirth(parser.checkDigit(19, 1, new MrzRange(13, 19, 1), "date of birth") && getDateOfBirth().isDateValid());
+		setSex(parser.parseSex(20, 1));
+		setExpirationDate(parser.parseDate(new MrzRange(21, 27, 1)));
+		setValidExpirationDate(parser.checkDigit(27, 1, new MrzRange(21, 27, 1), "expiration date") && getExpirationDate().isDateValid());
+		setOptional(parser.parseString(new MrzRange(28, 34, 1)));
 		// TODO validComposite missing? (final MRZ check digit)
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("SlovakId2x34");
-		sb.append('{');
-		sb.append(super.toString());
-		sb.append(", optional=").append(getOptional());
-		sb.append('}');
-		return sb.toString();
 	}
 
 	@Override
@@ -93,24 +78,6 @@ public class SlovakId2_34 extends MrzRecord {
 		sb.append(MrzParser.toMrz(getOptional(), 6));
 		sb.append('\n');
 		return sb.toString();
-	}
-
-	/**
-	 * Optional data at the discretion of the issuing State.
-	 *
-	 * @return the optional data
-	 */
-	public String getOptional() {
-		return optional;
-	}
-
-	/**
-	 * Optional data at the discretion of the issuing State.
-	 *
-	 * @param optional the optional data
-	 */
-	public void setOptional(final String optional) {
-		this.optional = optional;
 	}
 
 }

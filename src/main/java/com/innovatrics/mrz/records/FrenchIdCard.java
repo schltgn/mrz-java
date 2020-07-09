@@ -20,7 +20,7 @@ package com.innovatrics.mrz.records;
 
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.MrzRange;
-import com.innovatrics.mrz.MrzRecord;
+import com.innovatrics.mrz.MrzRecordOptional;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzFormat;
 
@@ -33,21 +33,16 @@ import com.innovatrics.mrz.types.MrzFormat;
  *
  * @author Pierrick Martin, Marin Moulinier
  */
-public class FrenchIdCard extends MrzRecord {
+public class FrenchIdCard extends MrzRecordOptional {
 
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * For use of the issuing State or organization.
-	 */
-	private String optional;
 
 	/**
 	 * Construct French ID Record.
 	 */
 	public FrenchIdCard() {
-		super(MrzFormat.FRENCH_ID);
-		setCode(MrzDocumentCode.TypeI);
+		super(MrzFormat.FRENCH_ID, "FrenchIdCard");
+		setCode(MrzDocumentCode.TYPE_I);
 		setCode1('I');
 		setCode2('D');
 	}
@@ -55,32 +50,22 @@ public class FrenchIdCard extends MrzRecord {
 	@Override
 	public void fromMrz(final String mrz) {
 		super.fromMrz(mrz);
-		final MrzParser p = new MrzParser(mrz);
+		final MrzParser parser = new MrzParser(mrz);
 		//Special because surname and firstname not on the same line
 		String[] name = new String[]{"", ""};
-		name[0] = p.parseString(new MrzRange(5, 30, 0));
-		name[1] = p.parseString(new MrzRange(13, 27, 1));
+		name[0] = parser.parseString(new MrzRange(5, 30, 0));
+		name[1] = parser.parseString(new MrzRange(13, 27, 1));
 		setName(name);
-		setNationality(p.parseString(new MrzRange(2, 5, 0)));
-		optional = p.parseString(new MrzRange(30, 36, 0));
-		setDocumentNumber(p.parseString(new MrzRange(0, 12, 1)));
-		setValidDocumentNumber(p.checkDigit(12, 1, new MrzRange(0, 12, 1), "document number"));
-		setDateOfBirth(p.parseDate(new MrzRange(27, 33, 1)));
-		setValidDateOfBirth(p.checkDigit(33, 1, new MrzRange(27, 33, 1), "date of birth") && getDateOfBirth().isDateValid());
-		setSex(p.parseSex(34, 1));
+		setNationality(parser.parseString(new MrzRange(2, 5, 0)));
+		setOptional(parser.parseString(new MrzRange(30, 36, 0)));
+		setDocumentNumber(parser.parseString(new MrzRange(0, 12, 1)));
+		setValidDocumentNumber(parser.checkDigit(12, 1, new MrzRange(0, 12, 1), "document number"));
+		setDateOfBirth(parser.parseDate(new MrzRange(27, 33, 1)));
+		setValidDateOfBirth(parser.checkDigit(33, 1, new MrzRange(27, 33, 1), "date of birth") && getDateOfBirth().isDateValid());
+		setSex(parser.parseSex(34, 1));
 		final String finalChecksum = mrz.replace("\n", "").substring(0, 36 + 35);
-		setValidComposite(p.checkDigit(35, 1, finalChecksum, "final checksum"));
+		setValidComposite(parser.checkDigit(35, 1, finalChecksum, "final checksum"));
 		// TODO expirationDate is missing
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder("FrenchIdCard");
-		sb.append('{');
-		sb.append(super.toString());
-		sb.append(", optional=").append(getOptional());
-		sb.append('}');
-		return sb.toString();
 	}
 
 	@Override
@@ -88,7 +73,7 @@ public class FrenchIdCard extends MrzRecord {
 		final StringBuilder sb = new StringBuilder("IDFRA");
 		// first row
 		sb.append(MrzParser.toMrz(getSurname(), 25));
-		sb.append(MrzParser.toMrz(optional, 6));
+		sb.append(MrzParser.toMrz(getOptional(), 6));
 		sb.append('\n');
 		// second row
 		sb.append(MrzParser.toMrz(getDocumentNumber(), 12));
@@ -100,20 +85,6 @@ public class FrenchIdCard extends MrzRecord {
 		sb.append(MrzParser.computeCheckDigitChar(sb.toString().replace("\n", "")));
 		sb.append('\n');
 		return sb.toString();
-	}
-
-	/**
-	 * @return the issuing State or Organization
-	 */
-	public String getOptional() {
-		return optional;
-	}
-
-	/**
-	 * @param optional the issuing State or Organization
-	 */
-	public void setOptional(final String optional) {
-		this.optional = optional;
 	}
 
 }
