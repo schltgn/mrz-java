@@ -27,70 +27,70 @@ import java.io.Serializable;
  */
 public class MrzRange implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 0-based index of first character in the range.
-     */
-    private final int column;
-    /**
-     * 0-based index of a character after last character in the range.
-     */
-    private final int columnTo;
-    /**
-     * 0-based row.
-     */
-    private final int row;
+	/**
+	 * 0-based index of first character in the range.
+	 */
+	private final int column;
+	/**
+	 * 0-based index of a character after last character in the range.
+	 */
+	private final int columnTo;
+	/**
+	 * 0-based row.
+	 */
+	private final int row;
 
-    /**
-     * Creates new MRZ range object.
-     *
-     * @param column 0-based index of first character in the range.
-     * @param columnTo 0-based index of a character after last character in the range.
-     * @param row 0-based row.
-     */
-    public MrzRange(final int column, final int columnTo, final int row) {
-        if (column > columnTo) {
-            throw new IllegalArgumentException("Parameter column: invalid value " + column + ": must be less than " + columnTo);
-        }
-        this.column = column;
-        this.columnTo = columnTo;
-        this.row = row;
-    }
+	/**
+	 * Creates new MRZ range object.
+	 *
+	 * @param column 0-based index of first character in the range.
+	 * @param columnTo 0-based index of a character after last character in the range.
+	 * @param row 0-based row.
+	 */
+	public MrzRange(final int column, final int columnTo, final int row) {
+		if (column > columnTo) {
+			throw new IllegalArgumentException("Parameter column: invalid value " + column + ": must be less than " + columnTo);
+		}
+		this.column = column;
+		this.columnTo = columnTo;
+		this.row = row;
+	}
 
-    /**
-     * @return the 0-based index of first character in the range
-     */
-    public final int getColumn() {
-        return column;
-    }
+	/**
+	 * @return the 0-based index of first character in the range
+	 */
+	public final int getColumn() {
+		return column;
+	}
 
-    /**
-     * @return the 0-based index of a character after last character in the range
-     */
-    public final int getColumnTo() {
-        return columnTo;
-    }
+	/**
+	 * @return the 0-based index of a character after last character in the range
+	 */
+	public final int getColumnTo() {
+		return columnTo;
+	}
 
-    /**
-     * @return the 0-based row
-     */
-    public final int getRow() {
-        return row;
-    }
+	/**
+	 * @return the 0-based row
+	 */
+	public final int getRow() {
+		return row;
+	}
 
-    /**
-     * Returns length of this range.
-     *
-     * @return number of characters, which this range covers.
-     */
-    public final int length() {
-        return getColumnTo() - getColumn();
-    }
+	/**
+	 * Returns length of this range.
+	 *
+	 * @return number of characters, which this range covers.
+	 */
+	public final int length() {
+		return getColumnTo() - getColumn();
+	}
 
-    @Override
-    public String toString() {
-        return getColumn() + "-" + getColumnTo() + "," + getRow();
-    }
+	@Override
+	public String toString() {
+		return getColumn() + "-" + getColumnTo() + "," + getRow();
+	}
 
 }

@@ -34,56 +34,56 @@ import javax.swing.JTextArea;
 @SuppressWarnings("HideUtilityClassConstructor")
 public class Demo {
 
-    private static int toPos(final int col, final int row, final String text) {
-        int currentRow = 0;
-        int currentCol = 0;
-        int pos = 0;
-        while (text.length() > pos) {
-            if (row == currentRow && currentCol == col) {
-                return pos;
-            }
-            if (text.charAt(pos) == '\n') {
-                currentRow++;
-                currentCol = 0;
-            } else {
-                currentCol++;
-            }
-            pos++;
-        }
-        return -1;
-    }
+	private static int toPos(final int col, final int row, final String text) {
+		int currentRow = 0;
+		int currentCol = 0;
+		int pos = 0;
+		while (text.length() > pos) {
+			if (row == currentRow && currentCol == col) {
+				return pos;
+			}
+			if (text.charAt(pos) == '\n') {
+				currentRow++;
+				currentCol = 0;
+			} else {
+				currentCol++;
+			}
+			pos++;
+		}
+		return -1;
+	}
 
-    /**
-     * MRZ demo.
-     *
-     * @param args the main arguments
-     */
-    public static void main(final String[] args) {
-        final JFrame frame = new JFrame("MRZDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final JTextArea mrz = new JTextArea(5, 44);
-        final JButton parse = new JButton("Parse");
-        parse.addActionListener(new ActionListener() {
+	/**
+	 * MRZ demo.
+	 *
+	 * @param args the main arguments
+	 */
+	public static void main(final String[] args) {
+		final JFrame frame = new JFrame("MRZDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		final JTextArea mrz = new JTextArea(5, 44);
+		final JButton parse = new JButton("Parse");
+		parse.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                final String m = mrz.getText();
-                try {
-                    final MrzRecord record = MrzParser.parse(m);
-                    JOptionPane.showMessageDialog(frame, "Parse successfull: " + record);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
-                    if (ex instanceof MrzParseException) {
-                        final MrzParseException mpe = (MrzParseException) ex;
-                        final MrzRange r = mpe.getRange();
-                        mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
-                    }
-                }
-            }
-        });
-        frame.getContentPane().add(mrz, BorderLayout.CENTER);
-        frame.getContentPane().add(parse, BorderLayout.SOUTH);
-        frame.pack();
-        frame.setVisible(true);
-    }
+			@Override
+			public void actionPerformed(final ActionEvent e) {
+				final String m = mrz.getText();
+				try {
+					final MrzRecord record = MrzParser.parse(m);
+					JOptionPane.showMessageDialog(frame, "Parse successfull: " + record);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
+					if (ex instanceof MrzParseException) {
+						final MrzParseException mpe = (MrzParseException) ex;
+						final MrzRange r = mpe.getRange();
+						mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
+					}
+				}
+			}
+		});
+		frame.getContentPane().add(mrz, BorderLayout.CENTER);
+		frame.getContentPane().add(parse, BorderLayout.SOUTH);
+		frame.pack();
+		frame.setVisible(true);
+	}
 }

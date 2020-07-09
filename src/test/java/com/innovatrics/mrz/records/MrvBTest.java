@@ -32,35 +32,35 @@ import org.junit.Test;
  */
 public class MrvBTest {
 
-    @Test
-    public void testMrvVisaBCardParsing() {
-        final MrvB r = (MrvB) MrzParser.parse("V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226\n");
-        assertEquals(MrzDocumentCode.TypeV, r.getCode());
-        assertEquals('V', r.getCode1());
-        assertEquals('<', r.getCode2());
-        assertEquals("UTO", r.getIssuingCountry());
-        assertEquals("UTO", r.getNationality());
-        assertEquals("L898902C", r.getDocumentNumber());
-        assertEquals(new MrzDate(94, 6, 23), r.getExpirationDate());
-        assertEquals("ZE184226", r.getOptional());
-        assertEquals(new MrzDate(69, 8, 6), r.getDateOfBirth());
-        assertEquals(MrzSex.Female, r.getSex());
-        assertEquals("ERIKSSON", r.getSurname());
-        assertEquals("ANNA MARIA", r.getGivenNames());
-    }
+	@Test
+	public void testMrvVisaBCardParsing() {
+		final MrvB r = (MrvB) MrzParser.parse("V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226\n");
+		assertEquals(MrzDocumentCode.TypeV, r.getCode());
+		assertEquals('V', r.getCode1());
+		assertEquals('<', r.getCode2());
+		assertEquals("UTO", r.getIssuingCountry());
+		assertEquals("UTO", r.getNationality());
+		assertEquals("L898902C", r.getDocumentNumber());
+		assertEquals(new MrzDate(94, 6, 23), r.getExpirationDate());
+		assertEquals("ZE184226", r.getOptional());
+		assertEquals(new MrzDate(69, 8, 6), r.getDateOfBirth());
+		assertEquals(MrzSex.Female, r.getSex());
+		assertEquals("ERIKSSON", r.getSurname());
+		assertEquals("ANNA MARIA", r.getGivenNames());
+	}
 
-    @Test
-    public void testMrvVisaBMrz() {
-        final MrvB r = new MrvB();
-        r.setIssuingCountry("FRA");
-        r.setNationality("FRA");
-        r.setOptional("123456");
-        r.setDocumentNumber("ABCDE1234512");
-        r.setExpirationDate(new MrzDate(18, 1, 2));
-        r.setDateOfBirth(new MrzDate(81, 10, 25));
-        r.setSex(MrzSex.Male);
-        r.setSurname("NOVAK");
-        r.setGivenNames("JAN");
-        assertEquals("V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<\n", r.toMrz());
-    }
+	@Test
+	public void testMrvVisaBMrz() {
+		final MrvB r = new MrvB();
+		r.setIssuingCountry("FRA");
+		r.setNationality("FRA");
+		r.setOptional("123456");
+		r.setDocumentNumber("ABCDE1234512");
+		r.setExpirationDate(new MrzDate(18, 1, 2));
+		r.setDateOfBirth(new MrzDate(81, 10, 25));
+		r.setSex(MrzSex.Male);
+		r.setSurname("NOVAK");
+		r.setGivenNames("JAN");
+		assertEquals("V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<\n", r.toMrz());
+	}
 }

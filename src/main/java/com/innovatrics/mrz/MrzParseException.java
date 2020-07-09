@@ -27,53 +27,53 @@ import com.innovatrics.mrz.types.MrzFormat;
  */
 public class MrzParseException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
-    /**
-     * The MRZ string being parsed.
-     */
-    private final String mrz;
-    /**
-     * Range containing problematic characters.
-     */
-    private final MrzRange range;
-    /**
-     * Expected MRZ format.
-     */
-    private final MrzFormat format;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * The MRZ string being parsed.
+	 */
+	private final String mrz;
+	/**
+	 * Range containing problematic characters.
+	 */
+	private final MrzRange range;
+	/**
+	 * Expected MRZ format.
+	 */
+	private final MrzFormat format;
 
-    /**
-     *
-     * @param message the message
-     * @param mrz the MRZ string being parsed
-     * @param range the Range containing problematic characters
-     * @param format the expected MRZ format
-     */
-    public MrzParseException(final String message, final String mrz, final MrzRange range, final MrzFormat format) {
-        super("Failed to parse MRZ " + format + " " + mrz + " at " + range + ": " + message);
-        this.mrz = mrz;
-        this.format = format;
-        this.range = range;
-    }
+	/**
+	 *
+	 * @param message the message
+	 * @param mrz the MRZ string being parsed
+	 * @param range the Range containing problematic characters
+	 * @param format the expected MRZ format
+	 */
+	public MrzParseException(final String message, final String mrz, final MrzRange range, final MrzFormat format) {
+		super("Failed to parse MRZ " + format + " " + mrz + " at " + range + ": " + message);
+		this.mrz = mrz;
+		this.format = format;
+		this.range = range;
+	}
 
-    /**
-     * @return the MRZ string being parsed
-     */
-    public final String getMrz() {
-        return mrz;
-    }
+	/**
+	 * @return the MRZ string being parsed
+	 */
+	public final String getMrz() {
+		return mrz;
+	}
 
-    /**
-     * @return the Range containing problematic characters
-     */
-    public final MrzRange getRange() {
-        return range;
-    }
+	/**
+	 * @return the Range containing problematic characters
+	 */
+	public final MrzRange getRange() {
+		return range;
+	}
 
-    /**
-     * @return the expected MRZ format
-     */
-    public final MrzFormat getFormat() {
-        return format;
-    }
+	/**
+	 * @return the expected MRZ format
+	 */
+	public final MrzFormat getFormat() {
+		return format;
+	}
 
 }

@@ -26,51 +26,51 @@ package com.innovatrics.mrz.types;
 @SuppressWarnings("PMD.FieldNamingConventions")
 public enum MrzSex {
 
-    /**
-     * Male MRZ sex type.
-     */
-    Male('M'),
-    /**
-     * Female MRZ sex type.
-     */
-    Female('F'),
-    /**
-     * Unspecified MRZ sex type.
-     */
-    Unspecified('X');
+	/**
+	 * Male MRZ sex type.
+	 */
+	Male('M'),
+	/**
+	 * Female MRZ sex type.
+	 */
+	Female('F'),
+	/**
+	 * Unspecified MRZ sex type.
+	 */
+	Unspecified('X');
 
-    /**
-     * The MRZ character.
-     */
-    private final char mrz;
+	/**
+	 * The MRZ character.
+	 */
+	private final char mrz;
 
-    private MrzSex(final char mrz) {
-        this.mrz = mrz;
-    }
+	private MrzSex(final char mrz) {
+		this.mrz = mrz;
+	}
 
-    /**
-     * @return the MRZ character
-     */
-    public final char getMrz() {
-        return mrz;
-    }
+	/**
+	 * @return the MRZ character
+	 */
+	public final char getMrz() {
+		return mrz;
+	}
 
-    /**
-     * @param sex the sex char
-     * @return the matching MrzSex type
-     */
-    public static MrzSex fromMrz(final char sex) {
-        switch (sex) {
-            case 'M':
-                return Male;
-            case 'F':
-                return Female;
-            case '<':
-            case 'X':
-                return Unspecified;
-            default:
-                throw new IllegalArgumentException("Invalid MRZ sex character: " + sex);
-        }
-    }
+	/**
+	 * @param sex the sex char
+	 * @return the matching MrzSex type
+	 */
+	public static MrzSex fromMrz(final char sex) {
+		switch (sex) {
+			case 'M':
+				return Male;
+			case 'F':
+				return Female;
+			case '<':
+			case 'X':
+				return Unspecified;
+			default:
+				throw new IllegalArgumentException("Invalid MRZ sex character: " + sex);
+		}
+	}
 
 }

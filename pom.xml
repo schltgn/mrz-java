@@ -20,114 +20,113 @@
  */
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.bordertech.mrz</groupId>
-    <artifactId>mrz-java</artifactId>
-    <name>MRZ Java Parser</name>
-    <version>0.0.1-SNAPSHOT</version>
+	<groupId>com.github.bordertech.mrz</groupId>
+	<artifactId>mrz-java</artifactId>
+	<name>MRZ Java Parser</name>
+	<version>0.0.1-SNAPSHOT</version>
 
-    <parent>
-        <groupId>com.github.bordertech.common</groupId>
-        <artifactId>qa-parent</artifactId>
-        <version>1.0.16</version>
-    </parent>
+	<parent>
+		<groupId>com.github.bordertech.common</groupId>
+		<artifactId>qa-parent</artifactId>
+		<version>1.0.16</version>
+	</parent>
 
-    <packaging>jar</packaging>
+	<packaging>jar</packaging>
 
-    <properties>
-        <bt.qa.skip>false</bt.qa.skip>
-        <checkstyle.suppressions.location>${basedir}/checkstyle-excludes.xml</checkstyle.suppressions.location>
-        <spotbugs.excludeFilterFile>${basedir}/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
-    </properties>
+	<properties>
+		<bt.qa.skip>false</bt.qa.skip>
+		<spotbugs.excludeFilterFile>${basedir}/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
+	</properties>
 
-    <description>Provides Java MRZ parser</description>
+	<description>Provides Java MRZ parser</description>
 
-    <url>https://github.com/bordertech/mrz-java</url>
+	<url>https://github.com/bordertech/mrz-java</url>
 
-    <scm>
-        <url>https://github.com/bordertech/mrz-java</url>
-        <connection>scm:git:https://github.com/bordertech/mrz-java.git</connection>
-        <developerConnection>scm:git:https://github.com/bordertech/mrz-java.git</developerConnection>
-        <tag>mrz-java-0.0.1</tag>
-    </scm>
+	<scm>
+		<url>https://github.com/bordertech/mrz-java</url>
+		<connection>scm:git:https://github.com/bordertech/mrz-java.git</connection>
+		<developerConnection>scm:git:https://github.com/bordertech/mrz-java.git</developerConnection>
+		<tag>mrz-java-0.0.1</tag>
+	</scm>
 
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/bordertech/mrz-java/issues</url>
-    </issueManagement>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/bordertech/mrz-java/issues</url>
+	</issueManagement>
 
-    <ciManagement>
-        <system>Travis CI</system>
-        <url>https://travis-ci.com/BorderTech/mrz-java</url>
-    </ciManagement>
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.com/BorderTech/mrz-java</url>
+	</ciManagement>
 
-    <licenses>
-        <license>
-            <name>The GNU Lesser General Public License, version 2.1 (LGPL-2.1)</name>
-            <url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>The GNU Lesser General Public License, version 2.1 (LGPL-2.1)</name>
+			<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+		</license>
+	</licenses>
 
-    <!-- Original Organization and Developers -->
-    <inceptionYear>2011</inceptionYear>
-    <organization>
-        <name>Innovatrics</name>
-        <url>http://www.innovatrics.com</url>
-    </organization>
-    <developers>
-        <developer>
-            <id>mvy</id>
-            <name>Martin Vysny</name>
-            <email>vysny@baka.sk</email>
-            <timezone>1</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
+	<!-- Original Organization and Developers -->
+	<inceptionYear>2011</inceptionYear>
+	<organization>
+		<name>Innovatrics</name>
+		<url>http://www.innovatrics.com</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>mvy</id>
+			<name>Martin Vysny</name>
+			<email>vysny@baka.sk</email>
+			<timezone>1</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
 
-    <build>
-        <plugins>
-            <!-- Add demo scripts -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/zip.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<!-- Add demo scripts -->
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/zip.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
-        <!-- Junit -->
-        <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-        </dependency>
-        <!-- SLF4J Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-        <!-- Logback impl -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<!-- Junit -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+		</dependency>
+		<!-- SLF4J Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<!-- Logback impl -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 </project>
