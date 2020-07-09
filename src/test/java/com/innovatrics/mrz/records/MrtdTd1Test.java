@@ -22,7 +22,7 @@ import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzSex;
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,19 +35,19 @@ public class MrtdTd1Test {
 	@Test
 	public void testTd1Parsing() {
 		final MrtdTd1 r = (MrtdTd1) MrzParser.parse("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n");
-		assertEquals(MrzDocumentCode.TYPE_C, r.getCode());
-		assertEquals('C', r.getCode1());
-		assertEquals('I', r.getCode2());
-		assertEquals("UTO", r.getIssuingCountry());
-		assertEquals("UTO", r.getNationality());
-		assertEquals("D23145890", r.getDocumentNumber());
-		assertEquals("A123X5328434D23", r.getOptional());
-		assertEquals("", r.getOptional2());
-		assertEquals(new MrzDate(95, 7, 12), r.getExpirationDate());
-		assertEquals(new MrzDate(34, 7, 12), r.getDateOfBirth());
-		assertEquals(MrzSex.MALE, r.getSex());
-		assertEquals("STEVENSON", r.getSurname());
-		assertEquals("PETER", r.getGivenNames());
+		Assert.assertEquals(MrzDocumentCode.TYPE_C, r.getCode());
+		Assert.assertEquals('C', r.getCode1());
+		Assert.assertEquals('I', r.getCode2());
+		Assert.assertEquals("UTO", r.getIssuingCountry());
+		Assert.assertEquals("UTO", r.getNationality());
+		Assert.assertEquals("D23145890", r.getDocumentNumber());
+		Assert.assertEquals("A123X5328434D23", r.getOptional());
+		Assert.assertEquals("", r.getOptional2());
+		Assert.assertEquals(new MrzDate(95, 7, 12), r.getExpirationDate());
+		Assert.assertEquals(new MrzDate(34, 7, 12), r.getDateOfBirth());
+		Assert.assertEquals(MrzSex.MALE, r.getSex());
+		Assert.assertEquals("STEVENSON", r.getSurname());
+		Assert.assertEquals("PETER", r.getGivenNames());
 	}
 
 	@Test
@@ -65,6 +65,6 @@ public class MrtdTd1Test {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("Stevenson");
 		r.setGivenNames("Peter");
-		assertEquals("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n", r.toMrz());
+		Assert.assertEquals("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n", r.toMrz());
 	}
 }

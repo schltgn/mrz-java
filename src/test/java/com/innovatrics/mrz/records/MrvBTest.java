@@ -22,7 +22,7 @@ import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzSex;
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,18 +35,18 @@ public class MrvBTest {
 	@Test
 	public void testMrvVisaBCardParsing() {
 		final MrvB r = (MrvB) MrzParser.parse("V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226\n");
-		assertEquals(MrzDocumentCode.TYPE_V, r.getCode());
-		assertEquals('V', r.getCode1());
-		assertEquals('<', r.getCode2());
-		assertEquals("UTO", r.getIssuingCountry());
-		assertEquals("UTO", r.getNationality());
-		assertEquals("L898902C", r.getDocumentNumber());
-		assertEquals(new MrzDate(94, 6, 23), r.getExpirationDate());
-		assertEquals("ZE184226", r.getOptional());
-		assertEquals(new MrzDate(69, 8, 6), r.getDateOfBirth());
-		assertEquals(MrzSex.FEMALE, r.getSex());
-		assertEquals("ERIKSSON", r.getSurname());
-		assertEquals("ANNA MARIA", r.getGivenNames());
+		Assert.assertEquals(MrzDocumentCode.TYPE_V, r.getCode());
+		Assert.assertEquals('V', r.getCode1());
+		Assert.assertEquals('<', r.getCode2());
+		Assert.assertEquals("UTO", r.getIssuingCountry());
+		Assert.assertEquals("UTO", r.getNationality());
+		Assert.assertEquals("L898902C", r.getDocumentNumber());
+		Assert.assertEquals(new MrzDate(94, 6, 23), r.getExpirationDate());
+		Assert.assertEquals("ZE184226", r.getOptional());
+		Assert.assertEquals(new MrzDate(69, 8, 6), r.getDateOfBirth());
+		Assert.assertEquals(MrzSex.FEMALE, r.getSex());
+		Assert.assertEquals("ERIKSSON", r.getSurname());
+		Assert.assertEquals("ANNA MARIA", r.getGivenNames());
 	}
 
 	@Test
@@ -61,6 +61,6 @@ public class MrvBTest {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("NOVAK");
 		r.setGivenNames("JAN");
-		assertEquals("V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<\n", r.toMrz());
+		Assert.assertEquals("V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<\n", r.toMrz());
 	}
 }

@@ -22,7 +22,7 @@ import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzSex;
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,18 +35,18 @@ public class MRPTest {
 	@Test
 	public void testParsing() {
 		final MRP r = (MRP) MrzParser.parse("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313<<<<<<<<70\n");
-		assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
-		assertEquals('I', r.getCode1());
-		assertEquals('<', r.getCode2());
-		assertEquals("SVK", r.getIssuingCountry());
-		assertEquals("SVK", r.getNationality());
-		assertEquals("749313", r.getPersonalNumber());
-		assertEquals("123456 AA", r.getDocumentNumber());
-		assertEquals(new MrzDate(18, 1, 2), r.getExpirationDate());
-		assertEquals(new MrzDate(81, 10, 25), r.getDateOfBirth());
-		assertEquals(MrzSex.MALE, r.getSex());
-		assertEquals("NOVAK", r.getSurname());
-		assertEquals("JAN", r.getGivenNames());
+		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
+		Assert.assertEquals('I', r.getCode1());
+		Assert.assertEquals('<', r.getCode2());
+		Assert.assertEquals("SVK", r.getIssuingCountry());
+		Assert.assertEquals("SVK", r.getNationality());
+		Assert.assertEquals("749313", r.getPersonalNumber());
+		Assert.assertEquals("123456 AA", r.getDocumentNumber());
+		Assert.assertEquals(new MrzDate(18, 1, 2), r.getExpirationDate());
+		Assert.assertEquals(new MrzDate(81, 10, 25), r.getDateOfBirth());
+		Assert.assertEquals(MrzSex.MALE, r.getSex());
+		Assert.assertEquals("NOVAK", r.getSurname());
+		Assert.assertEquals("JAN", r.getGivenNames());
 	}
 
 	@Test
@@ -63,6 +63,6 @@ public class MRPTest {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("NOVAK");
 		r.setGivenNames("JAN");
-		assertEquals("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313<<<<<<<<70\n", r.toMrz());
+		Assert.assertEquals("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313<<<<<<<<70\n", r.toMrz());
 	}
 }

@@ -22,7 +22,7 @@ import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzSex;
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,18 +35,18 @@ public class MrtdTd2Test {
 	@Test
 	public void testTd2Parsing() {
 		final MrtdTd2 r = (MrtdTd2) MrzParser.parse("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2");
-		assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
-		assertEquals('I', r.getCode1());
-		assertEquals('<', r.getCode2());
-		assertEquals("UTO", r.getIssuingCountry());
-		assertEquals("UTO", r.getNationality());
-		assertEquals("", r.getOptional());
-		assertEquals("D23145890", r.getDocumentNumber());
-		assertEquals(new MrzDate(95, 7, 12), r.getExpirationDate());
-		assertEquals(new MrzDate(34, 7, 12), r.getDateOfBirth());
-		assertEquals(MrzSex.MALE, r.getSex());
-		assertEquals("STEVENSON", r.getSurname());
-		assertEquals("PETER", r.getGivenNames());
+		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
+		Assert.assertEquals('I', r.getCode1());
+		Assert.assertEquals('<', r.getCode2());
+		Assert.assertEquals("UTO", r.getIssuingCountry());
+		Assert.assertEquals("UTO", r.getNationality());
+		Assert.assertEquals("", r.getOptional());
+		Assert.assertEquals("D23145890", r.getDocumentNumber());
+		Assert.assertEquals(new MrzDate(95, 7, 12), r.getExpirationDate());
+		Assert.assertEquals(new MrzDate(34, 7, 12), r.getDateOfBirth());
+		Assert.assertEquals(MrzSex.MALE, r.getSex());
+		Assert.assertEquals("STEVENSON", r.getSurname());
+		Assert.assertEquals("PETER", r.getGivenNames());
 	}
 
 	@Test
@@ -63,6 +63,6 @@ public class MrtdTd2Test {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("STEVENSON");
 		r.setGivenNames("PETER");
-		assertEquals("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2\n", r.toMrz());
+		Assert.assertEquals("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2\n", r.toMrz());
 	}
 }

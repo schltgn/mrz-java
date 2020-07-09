@@ -18,7 +18,7 @@
  */
 package com.innovatrics.mrz.types;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -29,51 +29,51 @@ public class MrzDateTest {
 
 	@Test
 	public void testCompareTo() {
-		assertEquals(0, new MrzDate(0, 1, 1).compareTo(new MrzDate(0, 1, 1)));
-		assertEquals(0, new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 4, 31)));
-		assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 4, 30)) > 0);
-		assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(54, 4, 31)) > 0);
-		assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 3, 31)) > 0);
-		assertTrue(new MrzDate(55, 4, 30).compareTo(new MrzDate(55, 4, 31)) < 0);
-		assertTrue(new MrzDate(55, 3, 31).compareTo(new MrzDate(55, 4, 31)) < 0);
-		assertTrue(new MrzDate(54, 4, 31).compareTo(new MrzDate(55, 4, 31)) < 0);
+		Assert.assertEquals(0, new MrzDate(0, 1, 1).compareTo(new MrzDate(0, 1, 1)));
+		Assert.assertEquals(0, new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 4, 31)));
+		Assert.assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 4, 30)) > 0);
+		Assert.assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(54, 4, 31)) > 0);
+		Assert.assertTrue(new MrzDate(55, 4, 31).compareTo(new MrzDate(55, 3, 31)) > 0);
+		Assert.assertTrue(new MrzDate(55, 4, 30).compareTo(new MrzDate(55, 4, 31)) < 0);
+		Assert.assertTrue(new MrzDate(55, 3, 31).compareTo(new MrzDate(55, 4, 31)) < 0);
+		Assert.assertTrue(new MrzDate(54, 4, 31).compareTo(new MrzDate(55, 4, 31)) < 0);
 	}
 
 	@Test
 	public void testEquals() {
-		assertEquals(new MrzDate(0, 1, 1), new MrzDate(0, 1, 1));
-		assertEquals(new MrzDate(55, 4, 31), new MrzDate(55, 4, 31));
-		assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(55, 4, 30)));
-		assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(54, 4, 31)));
-		assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(55, 3, 31)));
-		assertFalse(new MrzDate(55, 4, 30).equals(new MrzDate(55, 4, 31)));
-		assertFalse(new MrzDate(55, 3, 31).equals(new MrzDate(55, 4, 31)));
-		assertFalse(new MrzDate(54, 4, 31).equals(new MrzDate(55, 4, 31)));
+		Assert.assertEquals(new MrzDate(0, 1, 1), new MrzDate(0, 1, 1));
+		Assert.assertEquals(new MrzDate(55, 4, 31), new MrzDate(55, 4, 31));
+		Assert.assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(55, 4, 30)));
+		Assert.assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(54, 4, 31)));
+		Assert.assertFalse(new MrzDate(55, 4, 31).equals(new MrzDate(55, 3, 31)));
+		Assert.assertFalse(new MrzDate(55, 4, 30).equals(new MrzDate(55, 4, 31)));
+		Assert.assertFalse(new MrzDate(55, 3, 31).equals(new MrzDate(55, 4, 31)));
+		Assert.assertFalse(new MrzDate(54, 4, 31).equals(new MrzDate(55, 4, 31)));
 	}
 
 	@Test
 	public void testToMrz() {
-		assertEquals("550431", new MrzDate(55, 4, 31).toMrz());
-		assertEquals("081201", new MrzDate(8, 12, 1).toMrz());
-		assertEquals("880941", new MrzDate(88, 9, 41).toMrz());
-		assertEquals("BB1201", new MrzDate(-1, 12, 1, "BB1201").toMrz());
+		Assert.assertEquals("550431", new MrzDate(55, 4, 31).toMrz());
+		Assert.assertEquals("081201", new MrzDate(8, 12, 1).toMrz());
+		Assert.assertEquals("880941", new MrzDate(88, 9, 41).toMrz());
+		Assert.assertEquals("BB1201", new MrzDate(-1, 12, 1, "BB1201").toMrz());
 	}
 
 	@Test
 	public void testInvalidDate() {
 		MrzDate date = new MrzDate(88, 9, 41);
-		assertEquals(88, date.getYear());
-		assertEquals(9, date.getMonth());
-		assertEquals(41, date.getDay());
-		assertEquals(false, date.isDateValid());
+		Assert.assertEquals(88, date.getYear());
+		Assert.assertEquals(9, date.getMonth());
+		Assert.assertEquals(41, date.getDay());
+		Assert.assertEquals(false, date.isDateValid());
 	}
 
 	@Test
 	public void testValidDate() {
 		MrzDate date = new MrzDate(88, 9, 30);
-		assertEquals(88, date.getYear());
-		assertEquals(9, date.getMonth());
-		assertEquals(30, date.getDay());
-		assertEquals(true, date.isDateValid());
+		Assert.assertEquals(88, date.getYear());
+		Assert.assertEquals(9, date.getMonth());
+		Assert.assertEquals(30, date.getDay());
+		Assert.assertEquals(true, date.isDateValid());
 	}
 }
