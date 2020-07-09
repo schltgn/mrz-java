@@ -27,7 +27,7 @@ import com.innovatrics.mrz.records.MrtdTd1;
 import com.innovatrics.mrz.records.MrtdTd2;
 import com.innovatrics.mrz.records.MrvA;
 import com.innovatrics.mrz.records.MrvB;
-import com.innovatrics.mrz.records.SlovakId2_34;
+import com.innovatrics.mrz.records.SlovakId2x34;
 
 /**
  * Lists all supported MRZ formats. Note that the order of the enum constants are important, see for example {@link  #FRENCH_ID}.
@@ -93,7 +93,7 @@ public enum MrzFormat {
 	/**
 	 * Unknown 2 line/34 characters per line format, used with old Slovak ID cards.
 	 */
-	SLOVAK_ID_234(2, 34, SlovakId2_34.class);
+	SLOVAK_ID_234(2, 34, SlovakId2x34.class);
 
 	private final int rows;
 	private final int columns;

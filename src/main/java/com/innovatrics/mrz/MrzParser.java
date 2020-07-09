@@ -229,8 +229,15 @@ public class MrzParser {
 		if (range.length() != 6) {
 			throw new IllegalArgumentException("Parameter range: invalid value " + range + ": must be 6 characters long");
 		}
-		MrzRange r = new MrzRange(range.getColumn(), range.getColumn() + 2, range.getRow());
+		int year = parseYear(range);
+		int month = parseMonth(range);
+		int day = parseDay(range);
+		return new MrzDate(year, month, day, rawValue(range));
+	}
+
+	private int parseYear(final MrzRange range) {
 		int year;
+		MrzRange r = new MrzRange(range.getColumn(), range.getColumn() + 2, range.getRow());
 		try {
 			year = Integer.parseInt(rawValue(r));
 		} catch (NumberFormatException ex) {
@@ -240,8 +247,12 @@ public class MrzParser {
 		if (year < 0 || year > 99) {
 			LOG.debug("Invalid year value " + year + ": must be 0..99");
 		}
-		r = new MrzRange(range.getColumn() + 2, range.getColumn() + 4, range.getRow());
+		return year;
+	}
+
+	private int parseMonth(final MrzRange range) {
 		int month;
+		MrzRange r = new MrzRange(range.getColumn() + 2, range.getColumn() + 4, range.getRow());
 		try {
 			month = Integer.parseInt(rawValue(r));
 		} catch (NumberFormatException ex) {
@@ -251,19 +262,22 @@ public class MrzParser {
 		if (month < 1 || month > 12) {
 			LOG.debug("Invalid month value " + month + ": must be 1..12");
 		}
-		r = new MrzRange(range.getColumn() + 4, range.getColumn() + 6, range.getRow());
+		return month;
+	}
+
+	private int parseDay(final MrzRange range) {
 		int day;
+		MrzRange r = new MrzRange(range.getColumn() + 4, range.getColumn() + 6, range.getRow());
 		try {
 			day = Integer.parseInt(rawValue(r));
 		} catch (NumberFormatException ex) {
 			day = -1;
-			LOG.debug("Failed to parse MRZ date month " + rawValue(range) + ": " + ex, getMrz(), r);
+			LOG.debug("Failed to parse MRZ date day " + rawValue(range) + ": " + ex, getMrz(), r);
 		}
 		if (day < 1 || day > 31) {
 			LOG.debug("Invalid day value " + day + ": must be 1..31");
 		}
-		return new MrzDate(year, month, day, rawValue(range));
-
+		return day;
 	}
 
 	/**

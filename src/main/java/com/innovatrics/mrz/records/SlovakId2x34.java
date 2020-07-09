@@ -28,15 +28,14 @@ import com.innovatrics.mrz.types.MrzFormat;
  *
  * @author Martin Vysny
  */
-@SuppressWarnings("TypeName") // Allow invalid name for backward compatability
-public class SlovakId2_34 extends MrzRecordOptional {
+public class SlovakId2x34 extends MrzRecordOptional {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Construct a SlovakId2_34 Record.
 	 */
-	public SlovakId2_34() {
+	public SlovakId2x34() {
 		super(MrzFormat.SLOVAK_ID_234, "SlovakId2x34");
 	}
 

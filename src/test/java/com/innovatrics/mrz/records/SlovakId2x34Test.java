@@ -26,15 +26,15 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Tests {@link SlovakId2_34}.
+ * Tests {@link SlovakId2x34}.
  *
  * @author Martin Vysny
  */
-public class SlovakId2_34Test {
+public class SlovakId2x34Test {
 
 	@Test
 	public void testSlovakId234Parsing() {
-		final SlovakId2_34 r = (SlovakId2_34) MrzParser.parse("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313");
+		final SlovakId2x34 r = (SlovakId2x34) MrzParser.parse("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313");
 		assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		assertEquals('I', r.getCode1());
 		assertEquals('<', r.getCode2());
@@ -51,7 +51,7 @@ public class SlovakId2_34Test {
 
 	@Test
 	public void testToMrz() {
-		final SlovakId2_34 r = new SlovakId2_34();
+		final SlovakId2x34 r = new SlovakId2x34();
 		r.setCode1('I');
 		r.setCode2('<');
 		r.setIssuingCountry("SVK");

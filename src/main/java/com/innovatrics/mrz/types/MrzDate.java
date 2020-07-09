@@ -31,7 +31,7 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger log = LoggerFactory.getLogger(MrzDate.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MrzDate.class);
 
 	/**
 	 * Year, 00-99.
@@ -133,15 +133,15 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
 
 	private boolean check() {
 		if (getYear() < 0 || getYear() > 99) {
-			log.debug("Parameter year: invalid value " + getYear() + ": must be 0..99");
+			LOG.debug("Parameter year: invalid value " + getYear() + ": must be 0..99");
 			return false;
 		}
 		if (getMonth() < 1 || getMonth() > 12) {
-			log.debug("Parameter month: invalid value " + getMonth() + ": must be 1..12");
+			LOG.debug("Parameter month: invalid value " + getMonth() + ": must be 1..12");
 			return false;
 		}
 		if (getDay() < 1 || getDay() > 31) {
-			log.debug("Parameter day: invalid value " + getDay() + ": must be 1..31");
+			LOG.debug("Parameter day: invalid value " + getDay() + ": must be 1..31");
 			return false;
 		}
 
@@ -163,10 +163,7 @@ public class MrzDate implements Serializable, Comparable<MrzDate> {
 		if (this.getMonth() != other.getMonth()) {
 			return false;
 		}
-		if (this.getDay() != other.getDay()) {
-			return false;
-		}
-		return true;
+		return this.getDay() == other.getDay();
 	}
 
 	@Override
