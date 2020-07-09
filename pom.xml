@@ -110,16 +110,24 @@
 	</build>
 
 	<dependencies>
-		<!-- Junit -->
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
-		</dependency>
 		<!-- SLF4J Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.25</version>
+		</dependency>
+		<!-- Utils -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<!-- Test Dependencies -->
+		<!-- Junit -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
 		</dependency>
 		<!-- Logback impl -->
 		<dependency>
@@ -128,5 +136,6 @@
 			<version>1.2.3</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 </project>

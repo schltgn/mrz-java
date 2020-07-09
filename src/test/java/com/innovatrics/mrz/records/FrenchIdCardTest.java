@@ -18,6 +18,8 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzFinderUtil;
+import com.innovatrics.mrz.MrzNotFoundException;
 import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
@@ -33,9 +35,13 @@ import org.junit.Test;
  */
 public class FrenchIdCardTest {
 
+	private static final String PARSE = "IDFRAPETE<<<<<<<<<<<<<<<<<<<<<952042\n0509952018746NICOLAS<<PAUL<8206152M3\n";
+	private static final String TOMRZ = "IDFRANOVAK<<<<<<<<<<<<<<<<<<<<123456\nABCDE12345126JAN<<<<<<<<<<<8110251M8\n";
+	private static final String WRAPPED = "xx\n\nyyy\n" + PARSE + "\nZZZZ";
+
 	@Test
 	public void testFrenchIdCardParsing() throws MrzParseException {
-		final FrenchIdCard r = (FrenchIdCard) MrzParser.parse("IDFRAPETE<<<<<<<<<<<<<<<<<<<<<952042\n0509952018746NICOLAS<<PAUL<8206152M3\n");
+		final FrenchIdCard r = (FrenchIdCard) MrzParser.parse(PARSE);
 		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		Assert.assertEquals('I', r.getCode1());
 		Assert.assertEquals('D', r.getCode2());
@@ -62,6 +68,17 @@ public class FrenchIdCardTest {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("NOVAK");
 		r.setGivenNames("JAN");
-		Assert.assertEquals("IDFRANOVAK<<<<<<<<<<<<<<<<<<<<123456\nABCDE12345126JAN<<<<<<<<<<<8110251M8\n", r.toMrz());
+		Assert.assertEquals(TOMRZ, r.toMrz());
 	}
+
+	@Test
+	public void testFindMrz() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find MRZ", PARSE.trim(), MrzFinderUtil.findMrz(PARSE));
+	}
+
+	@Test
+	public void testFindMrzWrapped() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find wrapped MRZ", PARSE.trim(), MrzFinderUtil.findMrz(WRAPPED));
+	}
+
 }

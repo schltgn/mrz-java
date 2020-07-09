@@ -18,6 +18,8 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzFinderUtil;
+import com.innovatrics.mrz.MrzNotFoundException;
 import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
@@ -33,9 +35,13 @@ import org.junit.Test;
  */
 public class MrtdTd1Test {
 
+	private static final String PARSE = "CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n";
+	private static final String TOMRZ = "CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n";
+	private static final String WRAPPED = "xx\n\nyyy\n" + PARSE + "\nZZZZ";
+
 	@Test
 	public void testTd1Parsing() throws MrzParseException {
-		final MrtdTd1 r = (MrtdTd1) MrzParser.parse("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n");
+		final MrtdTd1 r = (MrtdTd1) MrzParser.parse(PARSE);
 		Assert.assertEquals(MrzDocumentCode.TYPE_C, r.getCode());
 		Assert.assertEquals('C', r.getCode1());
 		Assert.assertEquals('I', r.getCode2());
@@ -66,6 +72,17 @@ public class MrtdTd1Test {
 		r.setSex(MrzSex.MALE);
 		r.setSurname("Stevenson");
 		r.setGivenNames("Peter");
-		Assert.assertEquals("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n", r.toMrz());
+		Assert.assertEquals(TOMRZ, r.toMrz());
 	}
+
+	@Test
+	public void testFindMrz() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find MRZ", PARSE.trim(), MrzFinderUtil.findMrz(PARSE));
+	}
+
+	@Test
+	public void testFindMrzWrapped() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find wrapped MRZ", PARSE.trim(), MrzFinderUtil.findMrz(WRAPPED));
+	}
+
 }
