@@ -90,7 +90,7 @@ public class MrzRange implements Serializable {
 
     @Override
     public String toString() {
-        return "" + getColumn() + "-" + getColumnTo() + "," + getRow();
+        return getColumn() + "-" + getColumnTo() + "," + getRow();
     }
 
 }

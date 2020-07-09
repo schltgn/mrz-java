@@ -64,7 +64,12 @@ public class SlovakId2_34 extends MrzRecord {
 
     @Override
     public String toString() {
-        return "SlovakId2x34{" + super.toString() + ", optional=" + getOptional() + '}';
+        StringBuilder sb = new StringBuilder("SlovakId2x34");
+        sb.append('{');
+        sb.append(super.toString());
+        sb.append(", optional=").append(getOptional());
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

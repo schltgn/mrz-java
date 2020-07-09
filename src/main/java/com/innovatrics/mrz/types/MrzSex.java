@@ -23,6 +23,7 @@ package com.innovatrics.mrz.types;
  *
  * @author Martin Vysny
  */
+@SuppressWarnings("PMD.FieldNamingConventions")
 public enum MrzSex {
 
     /**
@@ -68,7 +69,7 @@ public enum MrzSex {
             case 'X':
                 return Unspecified;
             default:
-                throw new RuntimeException("Invalid MRZ sex character: " + sex);
+                throw new IllegalArgumentException("Invalid MRZ sex character: " + sex);
         }
     }
 

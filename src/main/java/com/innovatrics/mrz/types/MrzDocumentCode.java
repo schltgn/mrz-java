@@ -26,6 +26,7 @@ import com.innovatrics.mrz.MrzRange;
  *
  * @author Martin Vysny
  */
+@SuppressWarnings("PMD.FieldNamingConventions")
 public enum MrzDocumentCode {
 
     /**

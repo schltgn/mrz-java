@@ -167,7 +167,7 @@ public enum MrzFormat {
         try {
             return getRecordClass().newInstance();
         } catch (Exception ex) {
-            throw new RuntimeException(ex);
+            throw new IllegalStateException(ex);
         }
     }
 

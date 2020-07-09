@@ -63,7 +63,12 @@ public class MRP extends MrzRecord {
 
     @Override
     public String toString() {
-        return "MRP{" + super.toString() + ", personalNumber=" + getPersonalNumber() + '}';
+        StringBuilder sb = new StringBuilder("MRP");
+        sb.append('{');
+        sb.append(super.toString());
+        sb.append(", personalNumber=").append(getPersonalNumber());
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

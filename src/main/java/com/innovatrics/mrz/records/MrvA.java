@@ -67,7 +67,12 @@ public class MrvA extends MrzRecord {
 
     @Override
     public String toString() {
-        return "MRV-A{" + super.toString() + ", optional=" + getOptional() + '}';
+        StringBuilder sb = new StringBuilder("MRV-A");
+        sb.append('{');
+        sb.append(super.toString());
+        sb.append(", optional=").append(getOptional());
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

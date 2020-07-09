@@ -68,14 +68,19 @@ public class FrenchIdCard extends MrzRecord {
         setDateOfBirth(p.parseDate(new MrzRange(27, 33, 1)));
         setValidDateOfBirth(p.checkDigit(33, 1, new MrzRange(27, 33, 1), "date of birth") && getDateOfBirth().isDateValid());
         setSex(p.parseSex(34, 1));
-        final String finalChecksum = mrz.toString().replace("\n", "").substring(0, 36 + 35);
+        final String finalChecksum = mrz.replace("\n", "").substring(0, 36 + 35);
         setValidComposite(p.checkDigit(35, 1, finalChecksum, "final checksum"));
         // TODO expirationDate is missing
     }
 
     @Override
     public String toString() {
-        return "FrenchIdCard{" + super.toString() + ", optional=" + optional + '}';
+        StringBuilder sb = new StringBuilder("FrenchIdCard");
+        sb.append('{');
+        sb.append(super.toString());
+        sb.append(", optional=").append(getOptional());
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

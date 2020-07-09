@@ -286,7 +286,7 @@ public class MrzParser {
      * @return true if the character is valid, false otherwise.
      */
     private static boolean isValid(final char c) {
-        return ((c == FILLER) || (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z'));
+        return (c == FILLER) || (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z');
     }
 
     private static int getCharacterValue(final char c) {
@@ -299,7 +299,7 @@ public class MrzParser {
         if (c >= 'A' && c <= 'Z') {
             return c - 'A' + 10;
         }
-        throw new RuntimeException("Invalid character in MRZ record: " + c);
+        throw new IllegalArgumentException("Invalid character in MRZ record: " + c);
     }
 
     /**

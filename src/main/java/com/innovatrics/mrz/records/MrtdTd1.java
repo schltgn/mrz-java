@@ -68,7 +68,13 @@ public class MrtdTd1 extends MrzRecord {
 
     @Override
     public String toString() {
-        return "MRTD-TD1{" + super.toString() + ", optional=" + getOptional() + ", optional2=" + getOptional2() + '}';
+        StringBuilder sb = new StringBuilder("MRTD-TD1");
+        sb.append('{');
+        sb.append(super.toString());
+        sb.append(", optional=").append(getOptional());
+        sb.append(", optional2=").append(getOptional2());
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
