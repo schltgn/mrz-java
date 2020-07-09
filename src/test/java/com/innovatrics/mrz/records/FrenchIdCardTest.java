@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
@@ -33,7 +34,7 @@ import org.junit.Test;
 public class FrenchIdCardTest {
 
 	@Test
-	public void testFrenchIdCardParsing() {
+	public void testFrenchIdCardParsing() throws MrzParseException {
 		final FrenchIdCard r = (FrenchIdCard) MrzParser.parse("IDFRAPETE<<<<<<<<<<<<<<<<<<<<<952042\n0509952018746NICOLAS<<PAUL<8206152M3\n");
 		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		Assert.assertEquals('I', r.getCode1());

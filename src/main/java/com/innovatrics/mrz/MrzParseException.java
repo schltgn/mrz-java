@@ -25,7 +25,7 @@ import com.innovatrics.mrz.types.MrzFormat;
  *
  * @author Martin Vysny
  */
-public class MrzParseException extends RuntimeException {
+public class MrzParseException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	/**

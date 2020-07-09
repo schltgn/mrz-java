@@ -143,11 +143,11 @@ public abstract class MrzRecord implements Serializable {
 	 * Parses the MRZ record.
 	 *
 	 * @param mrz the mrz record, not null, separated by \n
-	 * @throws MrzParseException when a problem occurs.
+	 * @throws MrzParseException could not parse MRZ
 	 */
 	public void fromMrz(final String mrz) throws MrzParseException {
 		if (getFormat() != MrzFormat.get(mrz)) {
-			throw new MrzParseException("invalid format: " + MrzFormat.get(mrz), mrz, new MrzRange(0, 0, 0), getFormat());
+			throw new MrzParseException("Invalid format: " + MrzFormat.get(mrz), mrz, new MrzRange(0, 0, 0), getFormat());
 		}
 		setCode(MrzDocumentCode.parse(mrz));
 		setCode1(mrz.charAt(0));

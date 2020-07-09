@@ -29,9 +29,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Parses the MRZ records.
- * <p>
- * All parse methods throws {@link MrzParseException} unless stated otherwise.
- * </p>
  *
  * @author Martin Vysny
  */
@@ -81,8 +78,10 @@ public class MrzParser {
 	 * Creates new parser which parses given MRZ record.
 	 *
 	 * @param mrz the MRZ record, not null.
+	 *
+	 * @throws MrzParseException could not parse MRZ
 	 */
-	public MrzParser(final String mrz) {
+	public MrzParser(final String mrz) throws MrzParseException {
 		this.mrz = mrz;
 		this.rows = mrz.split("\n");
 		this.format = MrzFormat.get(mrz);
@@ -115,8 +114,9 @@ public class MrzParser {
 	 * @author jllarraz@github
 	 * @param range the range
 	 * @return array of [surname, first_name], never null, always with a length of 2.
+	 * @throws MrzParseException could not parse range
 	 */
-	public String[] parseName(final MrzRange range) {
+	public String[] parseName(final MrzRange range) throws MrzParseException {
 		checkValidCharacters(range);
 		String str = rawValue(range);
 		while (str.endsWith("<")) {
@@ -153,8 +153,9 @@ public class MrzParser {
 	 * Checks that given range contains valid characters.
 	 *
 	 * @param range the range to check.
+	 * @throws MrzParseException could not parse range
 	 */
-	public void checkValidCharacters(final MrzRange range) {
+	public void checkValidCharacters(final MrzRange range) throws MrzParseException {
 		final String str = rawValue(range);
 		for (int i = 0; i < str.length(); i++) {
 			final char c = str.charAt(i);
@@ -169,8 +170,9 @@ public class MrzParser {
 	 *
 	 * @param range the range
 	 * @return parsed string.
+	 * @throws MrzParseException could not parse range
 	 */
-	public String parseString(final MrzRange range) {
+	public String parseString(final MrzRange range) throws MrzParseException {
 		checkValidCharacters(range);
 		String str = rawValue(range);
 		while (str.endsWith("<")) {
@@ -347,8 +349,9 @@ public class MrzParser {
 	 *
 	 * @param mrz MRZ to parse.
 	 * @return record class.
+	 * @throws MrzParseException could not parse MRZ
 	 */
-	public static MrzRecord parse(final String mrz) {
+	public static MrzRecord parse(final String mrz) throws MrzParseException {
 		final MrzRecord result = MrzFormat.get(mrz).newRecord();
 		result.fromMrz(mrz);
 		return result;

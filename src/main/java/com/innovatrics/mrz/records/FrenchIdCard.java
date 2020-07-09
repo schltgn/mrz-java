@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.MrzRange;
 import com.innovatrics.mrz.MrzRecordOptional;
@@ -48,7 +49,7 @@ public class FrenchIdCard extends MrzRecordOptional {
 	}
 
 	@Override
-	public void fromMrz(final String mrz) {
+	public void fromMrz(final String mrz) throws MrzParseException {
 		super.fromMrz(mrz);
 		final MrzParser parser = new MrzParser(mrz);
 		//Special because surname and firstname not on the same line

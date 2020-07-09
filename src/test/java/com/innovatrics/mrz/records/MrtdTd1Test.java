@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
@@ -33,7 +34,7 @@ import org.junit.Test;
 public class MrtdTd1Test {
 
 	@Test
-	public void testTd1Parsing() {
+	public void testTd1Parsing() throws MrzParseException {
 		final MrtdTd1 r = (MrtdTd1) MrzParser.parse("CIUTOD231458907A123X5328434D23\n3407127M9507122UTO<<<<<<<<<<<6\nSTEVENSON<<PETER<<<<<<<<<<<<<<\n");
 		Assert.assertEquals(MrzDocumentCode.TYPE_C, r.getCode());
 		Assert.assertEquals('C', r.getCode1());

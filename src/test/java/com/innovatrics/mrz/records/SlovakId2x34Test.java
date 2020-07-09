@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
@@ -33,7 +34,7 @@ import org.junit.Test;
 public class SlovakId2x34Test {
 
 	@Test
-	public void testSlovakId234Parsing() {
+	public void testSlovakId234Parsing() throws MrzParseException {
 		final SlovakId2x34 r = (SlovakId2x34) MrzParser.parse("I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313");
 		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		Assert.assertEquals('I', r.getCode1());

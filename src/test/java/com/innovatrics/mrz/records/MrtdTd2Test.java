@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
@@ -33,7 +34,7 @@ import org.junit.Test;
 public class MrtdTd2Test {
 
 	@Test
-	public void testTd2Parsing() {
+	public void testTd2Parsing() throws MrzParseException {
 		final MrtdTd2 r = (MrtdTd2) MrzParser.parse("I<UTOSTEVENSON<<PETER<<<<<<<<<<<<<<<\nD231458907UTO3407127M9507122<<<<<<<2");
 		Assert.assertEquals(MrzDocumentCode.TYPE_I, r.getCode());
 		Assert.assertEquals('I', r.getCode1());

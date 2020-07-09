@@ -141,8 +141,9 @@ public enum MrzFormat {
 	 *
 	 * @param mrz the MRZ string.
 	 * @return the format, never null.
+	 * @throws MrzParseException could not parse MRZ
 	 */
-	public static final MrzFormat get(final String mrz) {
+	public static final MrzFormat get(final String mrz) throws MrzParseException {
 		final String[] rows = mrz.split("\n");
 		final int cols = rows[0].length();
 		for (int i = 1; i < rows.length; i++) {

@@ -62,8 +62,9 @@ public enum MrzDocumentCode {
 	 *
 	 * @param mrz the mrz string
 	 * @return the mrz document code
+	 * @throws MrzParseException could not parse MRZ
 	 */
-	public static MrzDocumentCode parse(final String mrz) {
+	public static MrzDocumentCode parse(final String mrz) throws MrzParseException {
 		final String code = mrz.substring(0, 2);
 
 		// 2-letter checks

@@ -18,6 +18,7 @@
  */
 package com.innovatrics.mrz.records;
 
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
@@ -33,7 +34,7 @@ import org.junit.Test;
 public class MrvATest {
 
 	@Test
-	public void testMrvVisaACardParsing() {
+	public void testMrvVisaACardParsing() throws MrzParseException {
 		final MrvA r = (MrvA) MrzParser.parse("V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226B<<<<<<<\n");
 		Assert.assertEquals(MrzDocumentCode.TYPE_V, r.getCode());
 		Assert.assertEquals('V', r.getCode1());

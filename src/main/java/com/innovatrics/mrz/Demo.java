@@ -68,8 +68,7 @@ public class Demo {
 				JOptionPane.showMessageDialog(frame, "Parse successfull: " + record);
 			} catch (MrzParseException ex) {
 				JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
-				final MrzParseException mpe = (MrzParseException) ex;
-				final MrzRange r = mpe.getRange();
+				final MrzRange r = ex.getRange();
 				mrz.select(toPos(r.getColumn(), r.getRow(), m), toPos(r.getColumnTo(), r.getRow(), m));
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(frame, "Parse failed: " + ex);
