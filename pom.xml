@@ -37,6 +37,8 @@
 
 	<properties>
 		<bt.qa.skip>false</bt.qa.skip>
+		<!-- Override findbugs plugin version used with spotbugs until fixed in qa-parent -->
+		<bt.fb-contrib.plugin.version>7.4.3.sb</bt.fb-contrib.plugin.version>
 		<spotbugs.excludeFilterFile>${basedir}/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
 	</properties>
 
