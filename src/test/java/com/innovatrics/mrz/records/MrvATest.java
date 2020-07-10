@@ -1,63 +1,84 @@
 /**
  * Java parser for the MRZ records, as specified by the ICAO organization.
  * Copyright (C) 2011 Innovatrics s.r.o.
- * 
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
 package com.innovatrics.mrz.records;
+
+import com.innovatrics.mrz.MrzFinderUtil;
+import com.innovatrics.mrz.MrzNotFoundException;
+import com.innovatrics.mrz.MrzParseException;
 import com.innovatrics.mrz.MrzParser;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzDocumentCode;
 import com.innovatrics.mrz.types.MrzSex;
+import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests {@link MrvA}.
+ *
  * @author Martin Vysny
  */
 public class MrvATest {
-    @Test
-    public void testMrvVisaACardParsing() {
-        final MrvA r = (MrvA) MrzParser.parse("V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226B<<<<<<<\n");
-        assertEquals(MrzDocumentCode.TypeV, r.code);
-        assertEquals('V', r.code1);
-        assertEquals('<', r.code2);
-        assertEquals("UTO", r.issuingCountry);
-        assertEquals("UTO", r.nationality);
-        assertEquals("L898902C", r.documentNumber);
-        assertEquals(new MrzDate(94, 6, 23), r.expirationDate);
-        assertEquals("ZE184226B", r.optional);
-        assertEquals(new MrzDate(69, 8, 6), r.dateOfBirth);
-        assertEquals(MrzSex.Female, r.sex);
-        assertEquals("ERIKSSON", r.surname);
-        assertEquals("ANNA MARIA", r.givenNames);
-    }
 
-    @Test
-    public void testMrvVisaAMrz() {
-        final MrvA r = new MrvA();
-        r.issuingCountry = "FRA";
-        r.nationality = "FRA";
-        r.optional = "123456";
-        r.documentNumber = "ABCDE1234512";
-        r.expirationDate = new MrzDate(18, 1, 2);
-        r.dateOfBirth = new MrzDate(81, 10, 25);
-        r.sex = MrzSex.Male;
-        r.surname = "NOVAK";
-        r.givenNames = "JAN";
-        assertEquals("V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<<<<<<<<<\n", r.toMrz());
-    }
+	private static final String PARSE = "V<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<\nL898902C<3UTO6908061F9406236ZE184226B<<<<<<<\n";
+	private static final String TOMRZ = "V<FRANOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\nABCDE12346FRA8110251M1801020123456<<<<<<<<<<\n";
+	private static final String WRAPPED = "xx\n\nyyy\n" + PARSE + "\nZZZZ";
+
+	@Test
+	public void testMrvVisaACardParsing() throws MrzParseException {
+		final MrvA r = (MrvA) MrzParser.parse(PARSE);
+		Assert.assertEquals(MrzDocumentCode.TYPE_V, r.getCode());
+		Assert.assertEquals('V', r.getCode1());
+		Assert.assertEquals('<', r.getCode2());
+		Assert.assertEquals("UTO", r.getIssuingCountry());
+		Assert.assertEquals("UTO", r.getNationality());
+		Assert.assertEquals("L898902C", r.getDocumentNumber());
+		Assert.assertEquals(new MrzDate(94, 6, 23), r.getExpirationDate());
+		Assert.assertEquals("ZE184226B", r.getOptional());
+		Assert.assertEquals(new MrzDate(69, 8, 6), r.getDateOfBirth());
+		Assert.assertEquals(MrzSex.FEMALE, r.getSex());
+		Assert.assertEquals("ERIKSSON", r.getSurname());
+		Assert.assertEquals("ANNA MARIA", r.getGivenNames());
+	}
+
+	@Test
+	public void testMrvVisaAMrz() {
+		final MrvA r = new MrvA();
+		r.setIssuingCountry("FRA");
+		r.setNationality("FRA");
+		r.setOptional("123456");
+		r.setDocumentNumber("ABCDE1234512");
+		r.setExpirationDate(new MrzDate(18, 1, 2));
+		r.setDateOfBirth(new MrzDate(81, 10, 25));
+		r.setSex(MrzSex.MALE);
+		r.setSurname("NOVAK");
+		r.setGivenNames("JAN");
+		Assert.assertEquals(TOMRZ, r.toMrz());
+	}
+
+	@Test
+	public void testFindMrz() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find MRZ", PARSE.trim(), MrzFinderUtil.findMrz(PARSE));
+	}
+
+	@Test
+	public void testFindMrzWrapped() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find wrapped MRZ", PARSE.trim(), MrzFinderUtil.findMrz(WRAPPED));
+	}
+
 }
