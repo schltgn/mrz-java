@@ -6,7 +6,7 @@
 ### Enhancements
 ### Bug Fixes
 
-### 0.6 (fork to BorderTech)
+## 0.6 (fork to BorderTech)
 
 ### API Changes
 
