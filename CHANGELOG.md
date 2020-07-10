@@ -3,6 +3,12 @@
 ## Release in-progress
 
 ### API Changes
+### Enhancements
+### Bug Fixes
+
+### 0.6 (fork to BorderTech)
+
+### API Changes
 
 * MrzParseException is now a checked exception and methods that require it now throw MrzParseException on their signatures
 * API changes required to pass QA checks enforced by qa-parent, sonarcloud and codacy:
@@ -20,36 +26,32 @@
 * Replace assembly zip and scripts with standalone jar
 * Implement travis CI.
 
-### Bug Fixes
-
-## Before Fork to BorderTech
-
-### 0.5
+## 0.5
 
 * Merged branch "Checkdigit" (release mrz-java-0.4.1)
 * Document codes "TD", "T", "R" are now supported. They are Travel Documents (Convention '54)
 
-### 0.4.1 ("Checkdigit" branch)
+## 0.4.1 ("Checkdigit" branch)
 
 * Check digit validation does not throw exception
 * Introducing check digit validity properties (validDateOfBirth, validExpirationDate, validDocumentNumber, validComposite) in result object
 
-### 0.4
+## 0.4
 
 * Fixed final checksum field, thanks to Marin Moulinier
 
-### 0.3
+## 0.3
 
 * Added support for shortening names
 * Fixed name conversion: D'Artagnan gets properly converted to DARTAGNAN
 * Added character expansion, e.g. Ä gets expanded to AE
 
-### 0.2
+## 0.2
 
 * Added support for serializing record back to the MRZ form
 * Fixed failing tests on Windows
 * Added support for French ID Card records (Pierrick Martin)
 * Added support for VISA A/B records (Jeremy Le Berre)
 
-### 0.1
+## 0.1
 * Initial release
