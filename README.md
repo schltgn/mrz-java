@@ -2,6 +2,16 @@
 
 Machine-Readable Zone (MRZ, see http://en.wikipedia.org/wiki/Machine-readable_passport ) parser for Java, as defined by ICAO: http://www.icao.int/
 
+## Status
+
+[![Build Status](https://travis-ci.com/BorderTech/mrz-java.svg?branch=master)](https://travis-ci.com/BorderTech/mrz-java)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bordertech-mrz-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=bordertech-mrz-java)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=bordertech-mrz-java&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=bordertech-mrz-java)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=bordertech-mrz-java&metric=coverage)](https://sonarcloud.io/dashboard?id=bordertech-mrz-java)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6c7067bc7882480abdae338befb41e11)](https://www.codacy.com/gh/BorderTech/mrz-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BorderTech/mrz-java&amp;utm_campaign=Badge_Grade)
+[![javadoc](https://javadoc.io/badge2/com.github.bordertech.mrz/mrz-java/javadoc.svg)](https://javadoc.io/doc/com.github.bordertech.mrz/mrz-java)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.bordertech.mrz/mrz-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.bordertech.mrz%22%20AND%20a:%22mrz-java%22)
+
 ## Getting started
 
 Add dependency:
@@ -31,7 +41,7 @@ try {
 
 ## Download and run demo
 
-* Download the latest mrz-java-VERSION-jar-with-dependencies.jar from [maven](https://repo1.maven.org/maven2/com/github/bordertech/mrz-java)
+* Download the latest `mrz-java-VERSION-jar-with-dependencies.jar` from [maven](https://repo1.maven.org/maven2/com/github/bordertech/mrz/mrz-java)
 * cd download directory
 * run `java -jar mrz-java-VERSION-jar-with-dependencies.jar`
 
