@@ -31,7 +31,7 @@ public final class MrzFinderUtil {
 	public static String findMrz(final String input) throws MrzNotFoundException, MrzParseException {
 		// Check input provided
 		if (input == null) {
-			throw new IllegalArgumentException("A input must be provided");
+			throw new MrzNotFoundException();
 		}
 		// Try to extract MRZ
 		String mrz = extractMrz(input);
