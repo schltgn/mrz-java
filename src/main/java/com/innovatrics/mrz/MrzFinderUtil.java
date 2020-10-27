@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public final class MrzFinderUtil {
 
 	// MRZ First Line - Type + delimiter or code + country code (then allow for line up to 30-44 length)
-	private static final Pattern MRZFIRSTLINE = Pattern.compile("[P|V|A|C|I][A-Z0-9<][A-Z]{3}[A-Z0-9<]{25,39}");
+	private static final Pattern MRZFIRSTLINE = Pattern.compile("[P|V|A|C|I][A-Z0-9<]([A-Z]{3}|D<<)[A-Z0-9<]{25,39}");
 	// MRZ Standard Characters Line (30 to 44 length)
 	private static final Pattern MRZCHARS = Pattern.compile("[A-Z0-9<]{30,44}");
 
@@ -52,7 +52,7 @@ public final class MrzFinderUtil {
 		for (String line : lines) {
 			String test = line.trim();
 			if (found) {
-				// Only extract continuos MRZ lines
+				// Only extract continuous MRZ lines
 				if (!MRZCHARS.matcher(test).matches()) {
 					break;
 				}
