@@ -6,6 +6,12 @@
 ### Enhancements
 ### Bug Fixes
 
+## 0.7
+
+### Enhancements
+
+* Parse one character country code for Germany in `MrzFinderUtil`.
+
 ## 0.6 (fork to BorderTech)
 
 ### API Changes

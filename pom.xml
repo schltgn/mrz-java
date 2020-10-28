@@ -25,7 +25,7 @@
 	<groupId>com.github.bordertech.mrz</groupId>
 	<artifactId>mrz-java</artifactId>
 	<name>MRZ Java Parser</name>
-	<version>0.7-SNAPSHOT</version>
+	<version>0.8-SNAPSHOT</version>
 
 	<parent>
 		<groupId>com.github.bordertech.common</groupId>
