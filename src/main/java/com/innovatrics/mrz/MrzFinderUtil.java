@@ -61,7 +61,7 @@ public final class MrzFinderUtil {
 				mrz.append(test);
 			} else if (MRZFIRSTLINE.matcher(test).matches()) {
 				found = true;
-				mrz.append(line);
+				mrz.append(test);
 			}
 		}
 		return mrz.toString();
