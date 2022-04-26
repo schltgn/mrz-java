@@ -52,7 +52,10 @@ public final class MrzFinderUtil {
 		for (String line : lines) {
 			String test = line.trim();
 			if (found) {
-				// Only extract continuous MRZ lines
+				// Only extract continuous MRZ lines, but skip empty lines.
+				if (test.isEmpty()) {
+					continue;
+				}
 				if (!MRZCHARS.matcher(test).matches()) {
 					break;
 				}
@@ -61,7 +64,7 @@ public final class MrzFinderUtil {
 				mrz.append(test);
 			} else if (MRZFIRSTLINE.matcher(test).matches()) {
 				found = true;
-				mrz.append(line);
+				mrz.append(test);
 			}
 		}
 		return mrz.toString();

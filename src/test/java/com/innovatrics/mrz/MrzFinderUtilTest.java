@@ -9,6 +9,8 @@ import org.junit.Test;
 public class MrzFinderUtilTest {
 
 	private static final String VALID_MRZ = "I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n123456<AA5SVK8110251M1801020749313<<<<<<<<70";
+	private static final String VALID_MRZ_BLANK_START = "  I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n  123456<AA5SVK8110251M1801020749313<<<<<<<<70";
+	private static final String VALID_MRZ_BLANK_LINES = "I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n  \n123456<AA5SVK8110251M1801020749313<<<<<<<<70";
 	private static final String VALID_GER_MRZ = "P<D<<MUSTERMANN<<ERIKA<<<<<<<<<<<<<<<<<<<<<<\nC01X00T478D<<6408125F2702283<<<<<<<<<<<<<<<4";
 	private static final String INVALID_MRZ = "I<SVKNOVAK<<JAN<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n123456";
 	private static final String WRAPPED_VALID = "xx\n\nyyy\n" + VALID_MRZ + "\nZZZZ";
@@ -20,6 +22,16 @@ public class MrzFinderUtilTest {
 	@Test
 	public void testValidMrz() throws MrzNotFoundException, MrzParseException {
 		Assert.assertEquals("Did not find valid MRZ", VALID_MRZ, MrzFinderUtil.findMrz(VALID_MRZ));
+	}
+
+	@Test
+	public void testValidMrzBlankStart() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find valid MRZ", VALID_MRZ, MrzFinderUtil.findMrz(VALID_MRZ_BLANK_START));
+	}
+
+	@Test
+	public void testValidMrzBlankLines() throws MrzNotFoundException, MrzParseException {
+		Assert.assertEquals("Did not find valid MRZ", VALID_MRZ, MrzFinderUtil.findMrz(VALID_MRZ_BLANK_LINES));
 	}
 
 	@Test
