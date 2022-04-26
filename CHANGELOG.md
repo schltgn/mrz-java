@@ -5,6 +5,7 @@
 ### API Changes
 ### Enhancements
 
+* Switch from travis-ci to GitHub Actions #6
 * Skip empty/blank lines when parsing MRZ
 * Add trimmed first line to result
 
