@@ -4,6 +4,10 @@
 
 ### API Changes
 ### Enhancements
+
+* Skip empty/blank lines when parsing MRZ
+* Add trimmed first line to result
+
 ### Bug Fixes
 
 ## 0.7
