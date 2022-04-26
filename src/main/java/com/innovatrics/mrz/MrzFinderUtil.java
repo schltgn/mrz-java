@@ -51,20 +51,20 @@ public final class MrzFinderUtil {
 		// Process lines until hit MRZ
 		for (String line : lines) {
 			String test = line.trim();
-			if (found) {
-				// Only extract continuous MRZ lines, but skip empty lines.
-				if (test.isEmpty()) {
-					continue;
+			// Only interested in lines that are not blank (this also allows for blank lines between MRZ lines)
+			if (!test.isEmpty()) {
+				if (found) {
+					// Only extract continuous MRZ lines
+					if (!MRZCHARS.matcher(test).matches()) {
+						break;
+					}
+					// Append line
+					mrz.append("\n");
+					mrz.append(test);
+				} else if (MRZFIRSTLINE.matcher(test).matches()) {
+					found = true;
+					mrz.append(test);
 				}
-				if (!MRZCHARS.matcher(test).matches()) {
-					break;
-				}
-				// Append line
-				mrz.append("\n");
-				mrz.append(test);
-			} else if (MRZFIRSTLINE.matcher(test).matches()) {
-				found = true;
-				mrz.append(test);
 			}
 		}
 		return mrz.toString();
