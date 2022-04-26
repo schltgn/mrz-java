@@ -363,7 +363,8 @@ public class MrzParser {
 	 * <p>
 	 * Several characters are expanded:
 	 * </p>
-	 * <table border="1" summary="Expanded characters">
+	 * <table border="1">
+	 * <caption>Expanded characters</caption>
 	 * <tr><th>Character</th><th>Expand to</th></tr>
 	 * <tr><td>Ä</td><td>AE</td></tr>
 	 * <tr><td>Å</td><td>AA</td></tr>
