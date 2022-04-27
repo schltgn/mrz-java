@@ -21,7 +21,7 @@ Add dependency:
   <dependency>
     <groupId>com.github.bordertech.mrz</groupId>
     <artifactId>mrz-java</artifactId>
-    <version>0.7</version>
+    <version>0.8</version>
   </dependency>
   ....
 </project>
