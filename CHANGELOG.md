@@ -4,13 +4,16 @@
 
 ### API Changes
 ### Enhancements
+### Bug Fixes
+
+## 0.8
+
+### Enhancements
 
 * Latest qa-parent and dependencies
 * Switch from travis-ci to GitHub Actions #6
 * Skip empty/blank lines when parsing MRZ
 * Add trimmed first line to result
-
-### Bug Fixes
 
 ## 0.7
 
