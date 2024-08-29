@@ -36,7 +36,12 @@ public enum MrzSex {
 	/**
 	 * Unspecified MRZ sex type.
 	 */
-	UNSPECIFIED('X');
+	UNSPECIFIED('X'),
+
+	/**
+	 * Undefined MRZ sex type.
+	 */
+	UNKNOWN('<');
 
 	/**
 	 * The MRZ character.
@@ -65,6 +70,7 @@ public enum MrzSex {
 			case 'F':
 				return FEMALE;
 			case '<':
+				return UNKNOWN;
 			case 'X':
 				return UNSPECIFIED;
 			default:
